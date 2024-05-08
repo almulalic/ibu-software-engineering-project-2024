@@ -1,0 +1,47 @@
+@import "src/assets/styles/colors";
+@import "src/assets/styles/constants";
+
+#event-filter {
+	justify-content: center;
+	gap: 0.5rem;
+
+	label {
+		font-size: 1rem;
+	}
+
+	.event-filter-page-size-select {
+		max-width: 4rem;
+	}
+
+	.event-filter-cascader {
+		width: 15rem;
+	}
+
+	.event-filter-order-select {
+		width: 10rem;
+	}
+
+	@media (max-width: $xl) {
+		gap: 1.5rem;
+	}
+
+	@media (max-width: $lg) {
+		padding-left: 3.5rem;
+		justify-content: flex-start;
+	}
+
+	@media (max-width: $sm) {
+		padding-left: 3rem;
+		justify-content: flex-start;
+	}
+
+	@media (max-width: $sm) {
+		padding-left: 1.5rem;
+		justify-content: flex-start;
+	}
+
+	@media (max-width: $xs) {
+		padding-left: 0rem;
+		justify-content: flex-start;
+	}
+}

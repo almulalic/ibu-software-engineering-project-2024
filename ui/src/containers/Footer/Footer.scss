@@ -1,0 +1,69 @@
+@import "src/assets/styles/constants";
+
+#footer {
+	background: rgb(49, 49, 49);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+	padding-top: 3rem;
+
+	@media (max-width: $xs) {
+		padding: 2rem 1rem;
+	}
+
+	.footer-social-media {
+		color: gray;
+
+		svg {
+			text-decoration: none;
+			transition: 0.5s;
+			font-size: 1.7rem;
+		}
+
+		svg:hover {
+			color: #fff;
+		}
+	}
+
+	.footer-wrapper {
+		width: 50%;
+
+		@media (max-width: $md) {
+			width: 80%;
+		}
+
+		@media (max-width: $sm) {
+			width: 90%;
+		}
+	}
+
+	.footer-links {
+		color: gray;
+		font-size: 1rem;
+
+		svg {
+			text-decoration: none;
+			transition: 0.5s;
+			font-size: 2rem;
+		}
+
+		svg:hover {
+			color: #fff;
+		}
+
+		@media (max-width: $xs) {
+			width: 100%;
+
+			.ant-col {
+				margin-top: 0.5rem;
+			}
+		}
+	}
+
+	.all-rights-reserved {
+		font-size: 0.8rem;
+		color: rgb(109, 109, 109);
+	}
+}

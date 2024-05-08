@@ -1,0 +1,118 @@
+@import "src/assets/styles/colors";
+@import "src/assets/styles/constants";
+
+.navbar {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	.navbar-main-menu {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		.navbar-main-menu-logo {
+			font-size: 3rem;
+			font-weight: bold;
+			margin-right: 2rem;
+			color: #fff;
+			line-height: 1;
+
+			@media (max-width: $md) {
+				font-size: 2rem;
+			}
+
+			@media (max-width: $xs) {
+				font-size: 1.5rem;
+			}
+		}
+
+		.navbar-main-menu-events {
+			color: white;
+			font-weight: bold;
+			font-size: 1.15rem;
+			align-self: center;
+			cursor: pointer;
+			transition: color 0.3s ease;
+			line-height: 1.25rem;
+
+			&:hover {
+				color: gray;
+			}
+		}
+
+		.navbar-main-menu-logo:hover {
+			color: gray;
+			cursor: pointer;
+		}
+
+		.navbar-main-menu-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+
+			color: rgb(255, 255, 255, 0.7);
+			font-size: 1.5rem;
+
+			@media (max-width: $md) {
+				font-size: 1rem;
+			}
+		}
+
+		.navbar-main-menu-item {
+			transition: color 0.3s ease;
+		}
+
+		.navbar-main-menu-item:hover {
+			cursor: pointer;
+			color: rgb(255, 255, 255);
+		}
+	}
+
+	.navbar-account-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1.3rem 2rem;
+		position: relative;
+
+		.navbar-account-actions {
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.account-action-create-event:hover {
+			color: $colorPrimary;
+			cursor: pointer;
+		}
+	}
+
+	.navbar-categories-header {
+		hr {
+			border: 1px solid rgb(43, 43, 43);
+			margin: 0px;
+		}
+
+		.navbar-categories-menu {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 1.5rem;
+			padding: 1rem 2rem;
+			color: rgb(255, 255, 255, 0.7);
+			font-size: 1rem;
+
+			.navbar-categories-menu-item {
+				transition: color 0.3s ease;
+			}
+
+			.navbar-categories-menu-item:hover {
+				cursor: pointer;
+				color: rgb(255, 255, 255);
+			}
+		}
+	}
+}

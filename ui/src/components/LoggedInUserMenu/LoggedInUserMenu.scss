@@ -1,0 +1,32 @@
+#logged-in-user-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+
+	.logged-in-user-action-dropdown {
+		cursor: pointer;
+		color: white;
+	}
+
+	.logged-in-user-action-text {
+		font-size: 1rem;
+	}
+
+	.logged-in-user-action-text svg {
+		font-size: 1rem;
+	}
+
+	.account-action-create-event {
+		color: white;
+		font-size: 1.3rem;
+		align-self: center;
+		transition: color 0.3s ease;
+	}
+
+	.logged-in-user-menu-compact {
+		color: white;
+		cursor: pointer;
+		font-size: 1.5rem;
+	}
+}

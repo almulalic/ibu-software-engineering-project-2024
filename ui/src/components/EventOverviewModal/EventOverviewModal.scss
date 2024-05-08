@@ -1,0 +1,139 @@
+@import "src/assets/styles/colors";
+@import "src/assets/styles/constants";
+
+.event-overview-modal-wrapper {
+	background-color: rgba(39, 39, 39, 0.9);
+	padding: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.event-overview-modal {
+		width: 600px !important;
+		position: absolute;
+		margin: 2rem 0 2rem 0;
+	}
+
+	.ant-modal-title {
+		text-align: center;
+		font-size: 1.5rem;
+	}
+
+	.event-overview-modal-image {
+		display: flex;
+		justify-content: center;
+		padding: 1rem;
+		margin: 1rem 0 1rem 0;
+
+		img {
+			width: 300px;
+			height: 275px;
+			border-radius: 1.5rem;
+			cursor: pointer;
+
+			@media (max-width: $lg) {
+				width: 300px;
+			}
+
+			@media (max-width: $md) {
+				width: 300px;
+			}
+
+			@media (max-width: $sm) {
+				width: 300px;
+			}
+		}
+	}
+
+	hr {
+		border: 1px solid rgb(43, 43, 43);
+		margin: 0px;
+	}
+
+	.event-overview-modal-description {
+		padding: 1rem;
+		font-size: 1.1rem;
+		margin: 1rem 0 1rem 0;
+		text-align: center;
+	}
+
+	.event-overview-modal-location-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 1rem 0 1rem 0;
+	}
+
+	.event-overview-modal-location {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1rem;
+
+		.event-overview-modal-label {
+			display: flex;
+			align-items: center;
+			gap: 0.3rem;
+			text-align: center;
+
+			&-icon {
+				display: flex;
+				font-size: 1rem;
+				color: $colorPrimary;
+				margin-right: 0.3rem;
+			}
+
+			&-name {
+				line-height: 1;
+				font-size: 1.1rem;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
+
+	.event-overview-modal-tickets {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin: 1rem 0 2rem 0;
+
+		h2 {
+			margin-bottom: 2rem;
+		}
+
+		.event-overview-modal-ticket {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.5rem;
+			width: 275px;
+
+			padding: 1.5rem;
+			background-color: rgba(49, 49, 49, 0.7);
+			border-radius: 1.5rem;
+
+			.event-overview-modal-ticket-price {
+				color: $colorPrimary;
+				font-size: 1.2rem;
+			}
+
+			.event-overview-modal-ticket-title-container {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				h3 {
+					margin: 0;
+					font-size: 1.2rem;
+				}
+
+				.event-overview-modal-description {
+					font-size: 1rem;
+				}
+			}
+		}
+	}
+}

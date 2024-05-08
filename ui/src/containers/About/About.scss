@@ -1,0 +1,31 @@
+@import "src/assets/styles/constants";
+
+#about {
+	padding: 0 10rem;
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+	margin-bottom: 2rem;
+
+	@media (max-width: $lg) {
+		padding: 0 5rem;
+	}
+
+	@media (max-width: $md) {
+		padding: 0 2rem;
+	}
+
+	.how-it-works-section {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		color: white;
+		padding: 1rem;
+		border-bottom: 1px solid rgb(43, 43, 43);
+
+		@media (max-width: $sm) {
+			overflow-x: scroll;
+		}
+	}
+}

@@ -1,0 +1,33 @@
+@import "src/assets/styles/constants";
+
+#my-events {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	.my-events-content {
+		padding: 2rem 25rem;
+
+		@media (max-width: $lg) {
+			padding: 2rem 15rem;
+		}
+
+		@media (max-width: $md) {
+			padding: 2rem 10rem;
+		}
+
+		@media (max-width: $sm) {
+			padding: 2rem 2rem;
+		}
+	}
+
+	.my-events-event-type-picker {
+		margin-bottom: 2rem;
+	}
+
+	.my-events-event-mode-picker {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

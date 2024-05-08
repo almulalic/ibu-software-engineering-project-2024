@@ -1,0 +1,112 @@
+[
+  {
+    "iso2Code": "AL",
+    "name": "Albania",
+    "cities": [
+      "Tirana",
+      "Durrës",
+      "Vlorë",
+      "Shkodër",
+      "Elbasan"
+    ]
+  },
+  {
+    "iso2Code": "BA",
+    "name": "Bosnia and Herzegovina",
+    "cities": [
+      "Sarajevo",
+      "Banja Luka",
+      "Tuzla",
+      "Zenica",
+      "Mostar"
+    ]
+  },
+  {
+    "iso2Code": "BG",
+    "name": "Bulgaria",
+    "cities": [
+      "Sofia",
+      "Plovdiv",
+      "Varna",
+      "Burgas",
+      "Ruse"
+    ]
+  },
+  {
+    "iso2Code": "HR",
+    "name": "Croatia",
+    "cities": [
+      "Zagreb",
+      "Split",
+      "Rijeka",
+      "Osijek",
+      "Zadar"
+    ]
+  },
+  {
+    "iso2Code": "MK",
+    "name": "North Macedonia",
+    "cities": [
+      "Skopje",
+      "Bitola",
+      "Kumanovo",
+      "Prilep",
+      "Tetovo"
+    ]
+  },
+  {
+    "iso2Code": "ME",
+    "name": "Montenegro",
+    "cities": [
+      "Podgorica",
+      "Nikšić",
+      "Herceg Novi",
+      "Pljevlja",
+      "Budva"
+    ]
+  },
+  {
+    "iso2Code": "RO",
+    "name": "Romania",
+    "cities": [
+      "Bucharest",
+      "Cluj-Napoca",
+      "Timișoara",
+      "Iași",
+      "Constanța"
+    ]
+  },
+  {
+    "iso2Code": "SI",
+    "name": "Slovenia",
+    "cities": [
+      "Ljubljana",
+      "Maribor",
+      "Celje",
+      "Koper",
+      "Novo Mesto"
+    ]
+  },
+  {
+    "iso2Code": "RS",
+    "name": "Serbia",
+    "cities": [
+      "Belgrade",
+      "Novi Sad",
+      "Niš",
+      "Kragujevac",
+      "Subotica"
+    ]
+  },
+  {
+    "iso2Code": "XK",
+    "name": "Kosovo",
+    "cities": [
+      "Pristina",
+      "Prizren",
+      "Gjakova",
+      "Peja",
+      "Mitrovica"
+    ]
+  }
+]

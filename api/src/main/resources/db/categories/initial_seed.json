@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Electronics",
+    "id": "electronics"
+  },
+  {
+    "name": "Clothing and Apparel",
+    "id": "clothing_and_apparel"
+  },
+  {
+    "name": "Home and Garden",
+    "id": "home_and_garden"
+  },
+  {
+    "name": "Books and Literature",
+    "id": "books_and_literature"
+  },
+  {
+    "name": "Sports and Outdoors",
+    "id": "sports_and_outdoors"
+  },
+  {
+    "name": "Health and Beauty",
+    "id": "health_and_beauty"
+  },
+  {
+    "name": "Toys and Games",
+    "id": "toys_and_games"
+  },
+  {
+    "name": "Automotive",
+    "id": "automotive"
+  },
+  {
+    "name": "Food and Grocery",
+    "id": "food_and_grocery"
+  },
+  {
+    "name": "Music and Instruments",
+    "id": "music_and_instruments"
+  },
+  {
+    "name": "Movies and Entertainment",
+    "id": "movies_and_entertainment"
+  },
+  {
+    "name": "Computers and Accessories",
+    "id": "computers_and_accessories"
+  },
+  {
+    "name": "Jewelry and Accessories",
+    "id": "jewelry_and_accessories"
+  },
+  {
+    "name": "Pet Supplies",
+    "id": "pet_supplies"
+  },
+  {
+    "name": "Travel and Adventure",
+    "id": "travel_and_adventure"
+  },
+  {
+    "name": "Fitness and Wellness",
+    "id": "fitness_and_wellness"
+  },
+  {
+    "name": "Art and Collectibles",
+    "id": "art_and_collectibles"
+  },
+  {
+    "name": "Crafts and Hobbies",
+    "id": "crafts_and_hobbies"
+  },
+  {
+    "name": "Baby and Kids",
+    "id": "baby_and_kids"
+  },
+  {
+    "name": "Office and Stationery",
+    "id": "office_and_stationery"
+  }
+]

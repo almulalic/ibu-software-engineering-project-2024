@@ -1,0 +1,71 @@
+@import "src/assets/styles/constants";
+
+.how-it-works-card {
+	height: 300px;
+	width: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 1rem;
+	gap: 2rem;
+	padding: 1rem;
+
+	img {
+		height: 225px;
+		width: 150px;
+
+		@media (max-width: $md) {
+			height: 200px;
+			width: 150px;
+		}
+
+		@media (max-width: $sm) {
+			height: 150px;
+			width: 125px;
+		}
+	}
+
+	&:not(:last-child) {
+		border-right: 1px solid rgb(43, 43, 43);
+	}
+
+	.how-it-works-card-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.how-it-works-card-img {
+		background-repeat: no-repeat;
+		user-select: none;
+	}
+
+	.how-it-works-card-heading {
+		font-size: 1.3rem;
+		margin: 0;
+		margin-bottom: 1rem;
+		text-align: center;
+
+		@media (max-width: $lg) {
+			font-size: 1.2rem;
+		}
+
+		@media (max-width: $md) {
+			font-size: 1rem;
+		}
+	}
+
+	.how-it-works-card-description {
+		text-align: center;
+
+		@media (max-width: $md) {
+			font-size: 0.8rem;
+		}
+
+		@media (max-width: $lg) {
+			font-size: 0.9rem;
+		}
+	}
+}

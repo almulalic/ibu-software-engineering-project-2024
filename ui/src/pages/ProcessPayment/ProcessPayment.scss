@@ -1,0 +1,178 @@
+#payment-process-section {
+	height: 720px;
+
+	.payment-process-form {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: rgb(49, 49, 49);
+		height: 100%;
+		padding: 2rem;
+
+		.payment-process-form-card {
+			width: 500px;
+		}
+
+		.payment-process-select-type {
+			margin-bottom: 2rem;
+		}
+
+		.payment-process-form-card {
+			padding: 1rem;
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.payment-process-modal-wrapper {
+	background-color: rgba(39, 39, 39, 0.9);
+}
+
+.payment-process-modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	h1 {
+		margin: 0;
+		text-align: center;
+	}
+
+	.ant-modal-title {
+		text-align: center;
+	}
+
+	.payment-process-modal-content {
+		padding: 1rem;
+	}
+
+	.payment-process-modal-spinner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin: 5% auto;
+
+		.anticon-spin {
+			font-size: 4rem;
+		}
+	}
+
+	.payment-process-modal-checkmark {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.checkmark__circle {
+			stroke-dasharray: 166;
+			stroke-dashoffset: 166;
+			stroke-width: 2;
+			stroke-miterlimit: 10;
+			stroke: #7ac142;
+			fill: none;
+			animation: strokeCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+			color: #7ac142;
+		}
+
+		.checkmark {
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			display: block;
+			stroke-width: 2;
+			stroke: #fff;
+			stroke-miterlimit: 10;
+			margin: 5% auto;
+			box-shadow: inset 0px 0px 0px #7ac142;
+			animation: fillCheck 0.4s ease-in-out 0.4s forwards, scaleCheck 0.3s ease-in-out 0.9s both;
+		}
+		.checkmark__check {
+			transform-origin: 50% 50%;
+			stroke-dasharray: 48;
+			stroke-dashoffset: 48;
+			animation: strokeCheck 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+		}
+
+		@keyframes strokeCheck {
+			100% {
+				stroke-dashoffset: 0;
+			}
+		}
+
+		@keyframes scaleCheck {
+			0%,
+			100% {
+				transform: none;
+			}
+			50% {
+				transform: scale3d(1.1, 1.1, 1);
+			}
+		}
+
+		@keyframes fillCheck {
+			100% {
+				box-shadow: inset 0px 0px 0px 30px #7ac142;
+			}
+		}
+	}
+}
+
+.payment-process-modal-error {
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	margin: 5% auto;
+
+	.cross {
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		display: block;
+		stroke-width: 2;
+		stroke: white;
+		stroke-miterlimit: 10;
+		box-shadow: inset 0px 0px 0px tomato;
+		animation: fillCross 0.4s ease-in-out 0.4s forwards, scaleCross 0.3s ease-in-out 0.9s both;
+	}
+
+	.cross_circle {
+		stroke-dasharray: 166;
+		stroke-dashoffset: 166;
+		stroke-width: 2;
+		stroke-miterlimit: 10;
+		stroke: tomato;
+		fill: none;
+		animation: strokeCross 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+	}
+
+	.cross_check {
+		transform-origin: 50% 50%;
+		stroke-dasharray: 48;
+		stroke-dashoffset: 48;
+		animation: strokeCross 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+	}
+
+	@keyframes strokeCross {
+		100% {
+			stroke-dashoffset: 0;
+		}
+	}
+
+	@keyframes scaleCross {
+		0%,
+		100% {
+			transform: none;
+		}
+		50% {
+			transform: scale3d(1.1, 1.1, 1);
+		}
+	}
+
+	@keyframes fillCross {
+		100% {
+			box-shadow: inset 0px 0px 0px 30px tomato;
+		}
+	}
+}

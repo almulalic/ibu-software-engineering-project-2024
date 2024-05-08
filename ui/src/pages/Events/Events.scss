@@ -1,0 +1,62 @@
+@import "src/assets/styles/constants";
+
+#events {
+	width: 100%;
+
+	.events-section {
+		box-sizing: border-box;
+		position: relative;
+
+		width: 100%;
+		background-color: rgb(49, 49, 49);
+		padding: 2rem 4rem;
+
+		@media (max-width: $sm) {
+			padding: 2rem;
+		}
+
+		@media (max-width: $lg) {
+			padding: 2rem 4rem;
+		}
+
+		h1 {
+			color: white;
+		}
+
+		&-filter {
+			padding: 1rem;
+			background-color: rgb(39, 39, 39);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 2rem;
+			border-radius: 1rem;
+
+			&-search {
+				width: 50%;
+			}
+
+			@media (max-width: $xl) {
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+
+				&-search {
+					width: 70%;
+				}
+			}
+
+			@media (max-width: $lg) {
+				&-search {
+					width: 80%;
+				}
+			}
+
+			@media (max-width: $lg) {
+				&-search {
+					width: 80%;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,134 @@
+@import "src/assets/styles/colors";
+@import "src/assets/styles/constants";
+
+.event-card {
+	width: 250px !important;
+	max-width: 350px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border-radius: 1.5rem;
+	padding: 0.5rem;
+	position: relative;
+
+	&-img {
+		position: relative;
+		width: 250px;
+		height: 250px;
+		border-radius: 1.5rem;
+
+		@media (max-width: $lg) {
+			width: 225px;
+			height: 225px;
+		}
+
+		@media (max-width: $md) {
+			width: 200px;
+			height: 200px;
+		}
+
+		@media (max-width: $xs) {
+			width: 200px;
+			height: 200px;
+		}
+	}
+
+	.event-card-edit {
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 1rem;
+		z-index: 5;
+		color: whitesmoke;
+		background-color: orangered;
+		padding: 0.6rem;
+		border-radius: 100%;
+		transition: color 0.3s ease;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			color: orangered;
+			background-color: whitesmoke;
+		}
+	}
+
+	.event-card-editing-true {
+		display: block;
+	}
+
+	.event-card-delete {
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 1rem;
+		z-index: 5;
+		color: whitesmoke;
+		background-color: orangered;
+		padding: 0.5rem;
+		border-radius: 100%;
+		transition: color 0.3s ease;
+		transition: background-color 0.3s ease;
+		border: 2px solid rgb(255, 127, 80, 0.2);
+
+		&:hover {
+			color: orangered;
+			background-color: whitesmoke;
+		}
+	}
+
+	.event-card-deleting-true {
+		display: block;
+	}
+
+	&-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 0.5rem;
+
+		padding: 1rem;
+		width: 100%;
+
+		.event-card-info {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 1.2rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.event-card-countdown-timer {
+			margin-bottom: 0.5rem;
+			font-size: 0.9rem;
+			text-wrap: wrap;
+		}
+
+		.event-card-label {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 0.3rem;
+			font-size: 1rem;
+
+			&-icon {
+				font-size: 0.8rem;
+				color: $colorPrimary;
+			}
+
+			&-name {
+				line-height: 1;
+				font-size: 0.8rem;
+				overflow: scroll;
+			}
+		}
+	}
+
+	&:hover {
+		background-color: rgba(39, 39, 39, 0.8);
+	}
+}
