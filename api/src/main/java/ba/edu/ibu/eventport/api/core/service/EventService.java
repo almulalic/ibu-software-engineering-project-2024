@@ -69,6 +69,15 @@ public class EventService {
   }
 
   /**
+   * Retrieves Top 10 events sorted by likedBy count descending.
+   *
+   * @return An {@link List<EventViewDTO>} representing the details of the specified events.
+   */
+  public List<Event> getEventsInFocus() {
+    return eventRepository.findTop10LikedDesc();
+  }
+
+  /**
    * Retrieves a list of events created by the specified user.
    *
    * @param userId   The ID of the user whose created events are to be retrieved.
@@ -80,6 +89,20 @@ public class EventService {
     Pageable pageable
   ) {
     return eventRepository.findUserCreatedEvents(new ObjectId(userId), pageable);
+  }
+
+  /**
+   * Retrieves a list of events liked by the specified user.
+   *
+   * @param userId   The ID of the user whose liked events are to be retrieved.
+   * @param pageable Pageable object for pagination and sorting.
+   * @return A {@link List} of {@link Event} objects liked by the specified user.
+   */
+  public List<Event> getUserLikedEvents(
+    String userId,
+    Pageable pageable
+  ) {
+    return eventRepository.findUserLikedEvents(new ObjectId(userId), pageable);
   }
 
   /**

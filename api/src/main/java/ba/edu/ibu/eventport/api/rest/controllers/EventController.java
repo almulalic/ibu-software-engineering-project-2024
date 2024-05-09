@@ -65,6 +65,16 @@ public class EventController {
 	}
 
 	/**
+	 * Retrieves Top 10 events sorted by likedBy count descending.
+	 *
+	 * @return ResponseEntity containing a List of EventViewDTO.
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "focus")
+	public ResponseEntity<List<EventViewDTO>> getEventsInFocus() {
+		return ResponseEntity.ok(eventService.getEventsInFocus().stream().map(EventViewDTO::new).toList());
+	}
+
+	/**
 	 * Retrieve events by category.
 	 *
 	 * @param category Category for filtering events.
@@ -84,6 +94,21 @@ public class EventController {
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<EventViewDTO> getEventById(@PathVariable String id) {
 		return ResponseEntity.ok(eventService.getEventById(id));
+	}
+
+	/**
+	 * Retrieve events liked by the user.
+	 *
+	 * @param request  HttpServletRequest for extracting user information.
+	 * @param pageable Pageable information for pagination.
+	 * @return ResponseEntity containing a List of EventViewDTO.
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/user/liked")
+	public ResponseEntity<List<EventViewDTO>> getUserLikedEvents(HttpServletRequest request, Pageable pageable) {
+		User user = ((User) request.getAttribute("user"));
+		return ResponseEntity.ok(
+			eventService.getUserLikedEvents(user.getId(), pageable).stream().map(EventViewDTO::new).toList()
+		);
 	}
 
 	/**
