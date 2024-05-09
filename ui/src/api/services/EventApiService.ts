@@ -50,6 +50,15 @@ export class EventApiService {
 		return authorizedAxiosApp.post(`/event/user/unlike/${eventId}`);
 	}
 
+	static async likedEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
+		return authorizedAxiosApp.get(
+			`/event/user/liked?${createSearchParams({
+				page: currentPage.toString(),
+				size: pageSize.toString(),
+			})}`
+		);
+	}
+
 	static async createdEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
 		return authorizedAxiosApp.get(
 			`/event/user/created?${createSearchParams({

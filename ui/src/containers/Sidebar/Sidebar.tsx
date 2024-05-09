@@ -36,6 +36,9 @@ export function Sidebar() {
 			case "EVENT_PAGE_ATTENDING":
 				path = "/me/events?selectedViewType=Attending+Events";
 				break;
+			case "EVENT_PAGE_LIKED":
+				path = "/me/events?selectedViewType=Liked+Events";
+				break;
 			case "EVENT_ACTION_CREATE":
 				path = "/events?create=true";
 				break;
@@ -84,6 +87,7 @@ export function Sidebar() {
 
 						<Menu.ItemGroup key="EVENT_PAGE" title="Event Actions">
 							<Menu.Item key="EVENT_PAGE_ATTENDING">Attending</Menu.Item>
+							<Menu.Item key="EVENT_PAGE_LIKED">Liked</Menu.Item>
 						</Menu.ItemGroup>
 						{userInfo?.assignedRoles.includes(Role.ORGANIZER) && (
 							<Menu.ItemGroup key="EVENTS_ACTION" title="Event Actions">
@@ -92,6 +96,12 @@ export function Sidebar() {
 								<Menu.Item key="EVENT_ACTION_DELETE">Delete</Menu.Item>
 							</Menu.ItemGroup>
 						)}
+					</SubMenu>
+				)}
+
+				{isLoggedIn && userInfo?.assignedRoles.includes(Role.ADMIN) && (
+					<SubMenu key="ADMIN" icon={<AuditOutlined />} title="Admin">
+						<Menu.Item key="ADMIN_ACTION_DASHBOARD">Manage Organizers</Menu.Item>
 					</SubMenu>
 				)}
 
