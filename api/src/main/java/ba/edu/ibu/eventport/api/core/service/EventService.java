@@ -131,6 +131,64 @@ public class EventService {
   }
 
   /**
+   * Likes an event on behalf of a user and returns the updated {@link EventViewDTO}.
+   *
+   * @param userId  The ID of the user liking the event.
+   * @param eventId The ID of the event to be liked.
+   * @return An updated {@link EventViewDTO} representing the liked event.
+   * @throws ResourceNotFoundException If no event with the given ID is found.
+   * @throws BadRequestException       If the user has already liked the event.
+   */
+  public EventViewDTO likeEvent(String userId, String eventId) {
+    Optional<Event> possibleEvent = eventRepository.findById(eventId);
+
+    if (possibleEvent.isEmpty()) {
+      throw new ResourceNotFoundException("The event with the given ID does not exist.");
+    }
+
+    Event event = possibleEvent.get();
+    ObjectId userObjectId = new ObjectId(userId);
+
+    if (event.getLikedBy().contains(userObjectId)) {
+      throw new BadRequestException("You already liked this event!");
+    }
+
+    event.getLikedBy().add(userObjectId);
+    eventRepository.save(event);
+
+    return new EventViewDTO(event);
+  }
+
+  /**
+   * Unlikes an event on behalf of a user and returns the updated {@link EventViewDTO}.
+   *
+   * @param userId  The ID of the user unliking the event.
+   * @param eventId The ID of the event to be unliked.
+   * @return An updated {@link EventViewDTO} representing the unliked event.
+   * @throws ResourceNotFoundException If no event with the given ID is found.
+   * @throws BadRequestException       If the user hasn't liked the event.
+   */
+  public EventViewDTO unlikeEvent(String userId, String eventId) {
+    Optional<Event> possibleEvent = eventRepository.findById(eventId);
+
+    if (possibleEvent.isEmpty()) {
+      throw new ResourceNotFoundException("The event with the given ID does not exist.");
+    }
+
+    Event event = possibleEvent.get();
+    ObjectId userObjectId = new ObjectId(userId);
+
+    if (!event.getLikedBy().contains(userObjectId)) {
+      throw new BadRequestException("You didn't like this event!");
+    }
+
+    event.getLikedBy().remove(userObjectId);
+    eventRepository.save(event);
+
+    return new EventViewDTO(event);
+  }
+
+  /**
    * Buys a ticket for the specified event on behalf of a user and returns the updated {@link EventViewDTO}.
    *
    * @param userId     The ID of the user buying the ticket.

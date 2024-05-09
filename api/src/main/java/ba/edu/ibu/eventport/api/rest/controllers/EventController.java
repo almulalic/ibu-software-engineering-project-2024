@@ -115,6 +115,32 @@ public class EventController {
 	}
 
 	/**
+	 * Like an event.
+	 *
+	 * @param request HttpServletRequest for extracting user information.
+	 * @param eventId Event ID to like.
+	 * @return ResponseEntity containing an EventViewDTO.
+	 */
+	@RequestMapping(method = RequestMethod.POST, path = "/user/like/{eventId}")
+	public ResponseEntity<EventViewDTO> like(HttpServletRequest request, @PathVariable String eventId) {
+		User user = ((User) request.getAttribute("user"));
+		return ResponseEntity.ok(eventService.likeEvent(user.getId(), eventId));
+	}
+
+	/**
+	 * Unlike an event.
+	 *
+	 * @param request HttpServletRequest for extracting user information.
+	 * @param eventId Event ID to unlike.
+	 * @return ResponseEntity containing an EventViewDTO.
+	 */
+	@RequestMapping(method = RequestMethod.POST, path = "/user/unlike/{eventId}")
+	public ResponseEntity<EventViewDTO> unlike(HttpServletRequest request, @PathVariable String eventId) {
+		User user = ((User) request.getAttribute("user"));
+		return ResponseEntity.ok(eventService.unlikeEvent(user.getId(), eventId));
+	}
+
+	/**
 	 * Buy a ticket for an event.
 	 *
 	 * @param request    HttpServletRequest for extracting user information.

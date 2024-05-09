@@ -125,6 +125,7 @@ public class EventRequestDTO {
 			.withGoogleMapsURL(googleMapsURL)
 			.withTicketTypes(ticketTypes)
 			.withCreatedBy(new ObjectId())
+			.withLikedBy(List.of())
 			.withParticipants(List.of())
 			.build();
 	}
