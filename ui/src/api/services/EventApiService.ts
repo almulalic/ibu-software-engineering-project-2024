@@ -30,6 +30,10 @@ export class EventApiService {
 		);
 	}
 
+	static async getInFocus() {
+		return publicAxiosApp.get(`/event/focus`);
+	}
+
 	static async create(event: EventRequestDTO) {
 		return authorizedAxiosApp.post(`/event`, event);
 	}
