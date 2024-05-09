@@ -38,6 +38,14 @@ export class EventApiService {
 		return authorizedAxiosApp.put(`/event/${id}`, event);
 	}
 
+	static async like(eventId: string): Promise<AxiosResponse> {
+		return authorizedAxiosApp.post(`/event/user/like/${eventId}`);
+	}
+
+	static async unlike(eventId: string): Promise<AxiosResponse> {
+		return authorizedAxiosApp.post(`/event/user/unlike/${eventId}`);
+	}
+
 	static async createdEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
 		return authorizedAxiosApp.get(
 			`/event/user/created?${createSearchParams({

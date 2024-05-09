@@ -3,7 +3,7 @@ import { Button, Modal, message } from "antd";
 import { Event } from "../../api/models/event/Event";
 import { TicketType } from "../../api/models/ticket/TicketType";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { ClockCircleFilled, EnvironmentFilled, UserOutlined } from "@ant-design/icons";
+import { ClockCircleFilled, EnvironmentFilled, LikeFilled, UserOutlined } from "@ant-design/icons";
 
 import "./EventModal.scss";
 import { useSelector } from "react-redux";
@@ -110,6 +110,13 @@ export default function EventModal({ event, isModalOpen, handleCancel }: EventMo
 							<span className="event-modal-label-name">
 								{event.participants.length} / {event.capacity}
 							</span>
+						</div>
+
+						<div className="event-modal-label">
+							<span className="event-modal-label-icon">
+								<LikeFilled />
+							</span>
+							<span className="event-modal-label-name">{event.likedBy.length}</span>
 						</div>
 					</div>
 				</div>

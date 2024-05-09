@@ -36,6 +36,49 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 
 	const { isLoggedIn, userInfo } = useSelector((state: RootState) => state.auth);
 
+	const [isLikedByUser, setLikedByUser] = useState(
+		userInfo ? (event.likedBy.find((x) => x == userInfo.id) ? true : false) : false
+	);
+
+	async function like(e: any) {
+		e.stopPropagation();
+
+		if (!isLoggedIn) {
+			messageApi.error("You must be logged in to like!");
+			return;
+		}
+
+		const response = await EventApiService.like(event.id);
+
+		if (response.status === 200) {
+			event.likedBy.push(userInfo!.id);
+			setLikedByUser(true);
+			messageApi.success("You like this event, nice!");
+		} else {
+			messageApi.error(response.data.message);
+		}
+	}
+
+	async function unlike(e: any) {
+		e.stopPropagation();
+
+		if (!isLoggedIn) {
+			messageApi.error("You must be logged in to unlike!");
+			return;
+		}
+
+		const response = await EventApiService.unlike(event.id);
+
+		if (response.status === 200) {
+			setLikedByUser(false);
+			event.likedBy = event.likedBy.filter((x) => x != userInfo!.id);
+
+			messageApi.success("You unliked this event :(");
+		} else {
+			messageApi.error(response.data.message);
+		}
+	}
+
 	async function handleDelete(e: any) {
 		e.stopPropagation();
 
@@ -87,6 +130,14 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 				<div className="event-card-content">
 					<div className="event-card-info">
 						<span className="event-card-title">{event.name}</span>
+						{!overview && (
+							<div className="event-card-likes">
+								<span className="event-card-likes-count">{event.likedBy.length}</span>
+								<span className={`event-card-likes-icon event-card-liked-${isLikedByUser}`}>
+									<HeartFilled onClick={isLikedByUser ? unlike : like} />
+								</span>
+							</div>
+						)}
 					</div>
 
 					{overview && (

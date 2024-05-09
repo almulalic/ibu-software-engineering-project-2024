@@ -100,6 +100,35 @@
 			align-items: center;
 			font-size: 1.2rem;
 			margin-bottom: 0.25rem;
+
+			.event-card-likes {
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				gap: 0.5rem;
+				font-size: 1.2rem;
+			}
+
+			.event-card-liked-true {
+				color: $colorPrimary;
+			}
+
+			.event-card-liked-true:hover {
+				color: white;
+			}
+
+			.event-card-liked-false {
+				color: white;
+			}
+
+			.event-card-liked-false:hover {
+				color: $colorPrimary;
+			}
+
+			.event-card-likes-icon {
+				transition: color 0.3s ease;
+				user-select: none;
+			}
 		}
 
 		.event-card-countdown-timer {
