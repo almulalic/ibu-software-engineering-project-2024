@@ -1,3 +1,4 @@
+export * from "./AdminDashboard";
 export * from "./Events";
 export * from "./Landing";
 export * from "./Login";

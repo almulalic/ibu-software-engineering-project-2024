@@ -1,0 +1,108 @@
+@import "src/assets/styles/constants";
+
+#admin-dashboard {
+	min-height: 100%;
+
+	.admin-dashboard-content {
+		position: relative;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4rem;
+		padding: 2rem 25rem;
+
+		@media (max-width: $lg) {
+			padding: 2rem 10rem;
+		}
+
+		@media (max-width: $md) {
+			padding: 2rem 5rem;
+		}
+
+		@media (max-width: $sm) {
+			padding: 2rem 2rem;
+		}
+	}
+
+	.admin-dashboard-event-type-picker {
+		width: 40%;
+
+		@media (max-width: $sm) {
+			width: 90% !important;
+		}
+	}
+
+	.admin-dashboard-search-container {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+
+		.admin-dashboard-search {
+			width: 70% !important;
+			height: 3rem !important;
+
+			@media (max-width: $lg) {
+				width: 80% !important;
+			}
+
+			@media (max-width: $sm) {
+				width: 90% !important;
+			}
+		}
+
+		.admin-dashboard-search input {
+			width: 50% !important;
+			height: 3rem !important;
+			font-size: 1rem !important;
+
+			@media (max-width: $lg) {
+				width: 80% !important;
+			}
+
+			@media (max-width: $md) {
+				font-size: 1rem !important;
+			}
+
+			@media (max-width: $sm) {
+				width: 90% !important;
+				font-size: 0.9rem !important;
+			}
+		}
+	}
+
+	.admin-dashboard-selected-user-card-items {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 0.5rem;
+
+		.admin-dashboard-selected-user-card-item {
+			@media (max-width: $xs) {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+	}
+
+	.admin-dashboard-selected-user {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.admin-dashboard-selected-user-card-label {
+			font-weight: bold;
+		}
+
+		.admin-dashboard-selected-user-roles-label {
+			font-weight: bold;
+		}
+
+		.admin-dashboard-selected-user-roles {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+	}
+}
