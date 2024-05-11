@@ -2,13 +2,33 @@ package ba.edu.ibu.eventport.auth.core.repository;
 
 import ba.edu.ibu.eventport.auth.core.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Repository interface for managing users in the database.
  */
 public interface UserRepository extends MongoRepository<User, String> {
+
+  /**
+   * Searches for users based on the provided search criteria.
+   *
+   * @param search The search criteria.
+   * @return List of users matching the search criteria.
+   */
+  @Query("""
+        {
+          $or:[
+            { 'email': { $regex: ?0, $options: 'i' } },
+            { 'displayName': { $regex: ?0, $options: 'i' } },
+            { 'firstName': { $regex: ?0, $options: 'i' } },
+            { 'lastName': { $regex: ?0, $options: 'i' } }
+           ]
+          }
+    """)
+  List<User> search(String search);
 
   /**
    * Finds a user by username or email.
