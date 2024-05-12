@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 import { Modal, QRCode } from "antd";
 import { Event } from "../../api/models/event/Event";
 import { TicketType } from "../../api/models/ticket/TicketType";
-import { ClockCircleFilled, EnvironmentFilled, UserOutlined } from "@ant-design/icons";
+import { ClockCircleFilled, EnvironmentFilled, LikeFilled, UserOutlined } from "@ant-design/icons";
 
 import "./EventOverviewModal.scss";
 
@@ -61,6 +61,13 @@ export const EventOverviewModal = ({ event, ticketType, isModalOpen, handleCance
 							<span className="event-overview-modal-label-name">
 								{event.participants.length} / {event.capacity}
 							</span>
+						</div>
+
+						<div className="event-overview-modal-label">
+							<span className="event-overview-modal-label-icon">
+								<LikeFilled />
+							</span>
+							<span className="event-overview-modal-label-name">{event.likedBy.length}</span>
 						</div>
 					</div>
 				</div>

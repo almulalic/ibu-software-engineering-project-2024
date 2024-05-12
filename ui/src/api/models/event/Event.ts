@@ -1,5 +1,4 @@
 import { TicketType } from "../ticket/TicketType";
-import { EventStatus } from "./EventStatus";
 import { GeoLocation } from "../GeoLocation";
 import { Participant } from "./Participant";
 
@@ -17,5 +16,6 @@ export interface Event {
 	ticketTypes: TicketType[];
 
 	createdBy: string;
+	likedBy: string[];
 	participants: Participant[];
 }

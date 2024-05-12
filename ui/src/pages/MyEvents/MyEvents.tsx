@@ -28,7 +28,7 @@ export function MyEvents() {
 	const [selectedEvent, setSelectedEvent] = useState(null);
 
 	const [messageApi, contextHolder] = message.useMessage();
-	const options: string[] = ["Attending Events", ...(isOrganizer ? ["Organized Events"] : [])];
+	const options: string[] = ["Attending Events", ...(isOrganizer ? ["Organized Events"] : []), "Liked Events"];
 
 	async function getMyEvents() {
 		setEventsLoading(true);
@@ -41,6 +41,9 @@ export function MyEvents() {
 			case "Organized Events":
 				response = await EventApiService.createdEvents(currentPage, 10);
 				break;
+			case "Liked Events":
+				response = await EventApiService.likedEvents(currentPage, 10);
+				break;
 		}
 
 		if (!response) {
@@ -52,7 +55,7 @@ export function MyEvents() {
 			setTotalResults(response!.data.totalElements);
 			setEventsLoading(false);
 		} else {
-			messageApi.error("Failed to load your events...");
+			messageApi.error("Failed to load your liked events...");
 			setEventsLoading(true);
 		}
 	}
@@ -78,6 +81,7 @@ export function MyEvents() {
 	const handleEditEvent = (event: any) => {
 		setSelectedEvent(event);
 		dispatch(set_create_modal_visible(true));
+		dispatch;
 	};
 
 	useEffect(() => {

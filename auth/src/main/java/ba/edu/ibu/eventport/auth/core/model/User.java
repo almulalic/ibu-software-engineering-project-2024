@@ -4,6 +4,7 @@ import ba.edu.ibu.eventport.auth.core.model.enums.AuthType;
 import ba.edu.ibu.eventport.auth.core.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mongodb.lang.NonNull;
+import io.jsonwebtoken.Claims;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -104,5 +105,29 @@ public class User implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return assignedRoles.stream().map(role -> new SimpleGrantedAuthority(role.name())).toList();
+  }
+  
+  /**
+   * Creates a User object from JWT claims.
+   *
+   * @param claims The claims extracted from a JWT.
+   * @return A User object.
+   */
+  public static User fromJwt(Claims claims) {
+    User user = new User();
+    user.setId(claims.get("id", String.class));
+    user.setUsername(claims.get("email", String.class));
+    user.setFirstName(claims.get("firstName", String.class));
+    user.setLastName(claims.get("lastName", String.class));
+    user.setEmail(claims.get("email", String.class));
+
+    user.setAssignedRoles(
+      ((List<String>) claims.get("assignedRoles", List.class))
+        .stream()
+        .map(Role::valueOf)
+        .toList()
+    );
+
+    return user;
   }
 }
