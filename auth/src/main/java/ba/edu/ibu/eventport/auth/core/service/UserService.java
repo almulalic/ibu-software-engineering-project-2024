@@ -1,6 +1,7 @@
 package ba.edu.ibu.eventport.auth.core.service;
 
 import ba.edu.ibu.eventport.auth.exception.repository.UserNotFoundException;
+import ba.edu.ibu.eventport.auth.rest.models.dto.EditUserRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -109,7 +110,7 @@ public class UserService {
    * @return The UserDTO representing the updated user.
    * @throws UserNotFoundException if the user with the given ID does not exist.
    */
-  public UserDTO updateUser(String id, CreateUserRequest payload) {
+  public UserDTO updateUser(String id, EditUserRequest payload) {
     Optional<User> user = userRepository.findById(id);
 
     if (user.isEmpty()) {
