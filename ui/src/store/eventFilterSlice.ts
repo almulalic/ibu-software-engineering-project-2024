@@ -16,6 +16,14 @@ export const SORT_OPTIONS: OrderDropdownItem<string>[] = [
 		value: "price,asc",
 		label: "Price (ASC)",
 	},
+	{
+		value: "likedBy.count,desc",
+		label: "Likes (DESC)",
+	},
+	{
+		value: "likedBy.count,asc",
+		label: "Likes (ASC)",
+	},
 ];
 
 export const PAGE_SIZE_OPTIONS: OrderDropdownItem<number>[] = [

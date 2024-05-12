@@ -30,12 +30,33 @@ export class EventApiService {
 		);
 	}
 
+	static async getInFocus() {
+		return publicAxiosApp.get(`/event/focus`);
+	}
+
 	static async create(event: EventRequestDTO) {
 		return authorizedAxiosApp.post(`/event`, event);
 	}
 
 	static async edit(id: string, event: EventRequestDTO) {
 		return authorizedAxiosApp.put(`/event/${id}`, event);
+	}
+
+	static async like(eventId: string): Promise<AxiosResponse> {
+		return authorizedAxiosApp.post(`/event/user/like/${eventId}`);
+	}
+
+	static async unlike(eventId: string): Promise<AxiosResponse> {
+		return authorizedAxiosApp.post(`/event/user/unlike/${eventId}`);
+	}
+
+	static async likedEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
+		return authorizedAxiosApp.get(
+			`/event/user/liked?${createSearchParams({
+				page: currentPage.toString(),
+				size: pageSize.toString(),
+			})}`
+		);
 	}
 
 	static async createdEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {

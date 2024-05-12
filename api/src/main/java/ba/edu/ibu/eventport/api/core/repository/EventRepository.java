@@ -32,6 +32,20 @@ public interface EventRepository extends MongoRepository<Event, String>,
   List<Event> findByCategory(String category);
 
   /**
+   * Finds the top 10 events ordered by the length of the likedBy array in descending order.
+   *
+   * @return a list of the top 10 events
+   */
+  @Query(value = "{}", sort = "{ 'likedBy.length' : -1 }")
+  @Aggregation(
+    pipeline = {
+      "{ $sort: { 'likedBy.length' : -1 } }",
+      "{ $limit: 10 }"
+    }
+  )
+  List<Event> findTop10LikedDesc();
+
+  /**
    * Retrieves a list of events created by the user with the specified ID.
    *
    * @param userId   The unique identifier of the user.
@@ -40,4 +54,14 @@ public interface EventRepository extends MongoRepository<Event, String>,
    */
   @Query("{'createdBy': ?0}")
   List<Event> findUserCreatedEvents(ObjectId userId, Pageable pageable);
+
+  /**
+   * Retrieves a list of events liked by the user with the specified ID.
+   *
+   * @param userId   The unique identifier of the user.
+   * @param pageable The pageable information for pagination.
+   * @return A list of events liked by the user.
+   */
+  @Query("{'likedBy': ?0}")
+  List<Event> findUserLikedEvents(ObjectId userId, Pageable pageable);
 }

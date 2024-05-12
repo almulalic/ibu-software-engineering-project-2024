@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Layout, message } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useSearchParams } from "react-router-dom";
-import { About, EventSlideshow, Footer, Navbar, Sidebar } from "../../containers";
+import { About, EventSlideshow, EventsInFocus, Footer, Navbar, Sidebar } from "../../containers";
 
 import "./Landing.scss";
 
@@ -38,6 +38,7 @@ export function Landing() {
 			<Sidebar />
 			<Content id="landing-content">
 				<EventSlideshow />
+				<EventsInFocus />
 				<About />
 			</Content>
 			<Footer />

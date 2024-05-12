@@ -1,0 +1,31 @@
+@import "src/assets/styles/constants";
+
+#events-in-focus {
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: white;
+		font-size: 1rem;
+
+		@media (max-width: $sm) {
+			font-size: 0.8rem;
+		}
+
+		.navigation {
+			display: flex;
+			gap: 1rem;
+			font-weight: bold;
+		}
+
+		.navigation-button {
+			cursor: pointer;
+		}
+	}
+
+	.events {
+		display: flex;
+		overflow-x: scroll;
+		gap: 1.5rem;
+	}
+}
