@@ -46,12 +46,6 @@ public class EditUserRequest {
     private String displayName;
 
     /**
-     * The password of the user.
-     */
-    @NotBlank(message = "Password can not be empty!")
-    private String password;
-
-    /**
      * Converts the CreateUserRequest object to a User entity.
      *
      * @return The User entity.
@@ -63,7 +57,6 @@ public class EditUserRequest {
         user.setUsername(email);
         user.setEmail(email);
         user.setDisplayName(displayName);
-        user.setPassword(password);
         user.setCreationDate(new Date());
         return user;
     }
