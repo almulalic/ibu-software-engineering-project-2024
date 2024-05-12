@@ -5,3 +5,4 @@ export * from "./Login";
 export * from "./MyEvents";
 export * from "./ProcessPayment";
 export * from "./SignUp";
+export * from "./EditProfile";
