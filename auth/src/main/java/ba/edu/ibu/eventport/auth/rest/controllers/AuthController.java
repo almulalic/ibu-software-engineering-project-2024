@@ -69,7 +69,7 @@ public class AuthController {
     return ResponseEntity.ok(this.authService.refreshToken(dto));
   }
 
-  @RequestMapping(method = RequestMethod.PUT, path = "/user/update")
+  @RequestMapping(method = RequestMethod.PUT, path = "/user")
   public ResponseEntity<UserDTO> updateUser(
     HttpServletRequest request,
     @Valid @RequestBody

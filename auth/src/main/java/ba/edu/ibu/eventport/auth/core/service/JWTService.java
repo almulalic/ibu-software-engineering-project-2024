@@ -53,8 +53,8 @@ public class JWTService {
              .compact();
   }
 
-  public boolean isTokenValid(String token, UserDetails userDetails) {
-    return (extractUserName(token).equals(userDetails.getUsername())) && !isTokenExpired(token);
+  public boolean isTokenValid(String token) {
+    return !isTokenExpired(token);
   }
 
   private boolean isTokenExpired(String token) {
@@ -70,7 +70,7 @@ public class JWTService {
     return claimsResolvers.apply(claims);
   }
 
-  private Claims extractAllClaims(String token) {
+  public Claims extractAllClaims(String token) {
     return Jwts.parser()
              .verifyWith(getSigningKey())
              .build()
