@@ -2,13 +2,16 @@ package ba.edu.ibu.eventport.auth.rest.controllers;
 
 import ba.edu.ibu.eventport.auth.core.model.User;
 import ba.edu.ibu.eventport.auth.core.service.AuthService;
+import ba.edu.ibu.eventport.auth.core.service.UserService;
 import ba.edu.ibu.eventport.auth.rest.models.dto.CreateUserRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.EditRoleRequest;
+import ba.edu.ibu.eventport.auth.rest.models.dto.EditUserRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.UserDTO;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.GenerateTokenRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.RefreshTokenRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.RefreshTokenResponse;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.TokenResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +26,12 @@ import java.util.List;
 public class AuthController {
 
   private final AuthService authService;
+  private final UserService userService;
 
-  public AuthController(AuthService authService) {
+  public AuthController(AuthService authService, UserService userService) {
+
     this.authService = authService;
+    this.userService = userService;
   }
 
   @RequestMapping(method = RequestMethod.GET, path = "/user/search")
@@ -61,5 +67,15 @@ public class AuthController {
     @Valid @RequestBody RefreshTokenRequest dto
   ) {
     return ResponseEntity.ok(this.authService.refreshToken(dto));
+  }
+
+  @RequestMapping(method = RequestMethod.PUT, path = "/user")
+  public ResponseEntity<UserDTO> updateUser(
+    HttpServletRequest request,
+    @Valid @RequestBody
+    EditUserRequest dto
+  ) {
+    User user = ((User) request.getAttribute("user"));
+    return ResponseEntity.ok(this.userService.updateUser(user.getId(), dto));
   }
 }

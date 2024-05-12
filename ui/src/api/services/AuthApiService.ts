@@ -1,5 +1,5 @@
 import { createSearchParams } from "react-router-dom";
-import { axiosAuth, axiosAuthAuthorized } from "./Axios";
+import { axiosAuth, axiosAuthAuthorized, authorizedAuthAxiosApp } from "./Axios";
 import { AxiosResponse } from "axios";
 
 export class AuthAPIService {
@@ -39,6 +39,15 @@ export class AuthAPIService {
 		return axiosAuthAuthorized.put(`/auth/user/edit/role`, {
 			userId: userId,
 			roles: roles,
+		});
+	}
+
+	static async edit(firstName: string, lastName: string, displayName: string, email: string): Promise<AxiosResponse> {
+		return authorizedAuthAxiosApp.put("/auth/user", {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			displayName: displayName,
 		});
 	}
 }

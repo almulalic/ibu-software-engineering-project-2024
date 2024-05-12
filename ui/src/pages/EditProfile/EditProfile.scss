@@ -1,0 +1,13 @@
+#edit-profile {
+	.page-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 3rem;
+
+		.edit-profile-form-card {
+			width: 25%;
+		}
+	}
+}

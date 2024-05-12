@@ -7,7 +7,6 @@ import { Alert, Button, Checkbox, Form, Input } from "antd";
 import { FacebookFilled, GoogleSquareFilled, InstagramOutlined, MailOutlined } from "@ant-design/icons";
 
 import "./SignUp.scss";
-import { validateRequiredCheckbox } from "../ProcessPayment";
 
 export type SignUpFormData = {
 	firstName: string;

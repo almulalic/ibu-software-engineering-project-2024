@@ -31,6 +31,14 @@ export const axiosAuthAuthorized = axios.create({
 attachTokenLogic(axiosAuthAuthorized);
 attachRefreshLogic(axiosAuthAuthorized);
 
+export const authorizedAuthAxiosApp = axios.create({
+	baseURL: BASE_AUTH_URL,
+	timeout: 10000,
+	validateStatus: (status) => status !== 401 && status !== 403,
+});
+attachTokenLogic(authorizedAuthAxiosApp);
+attachRefreshLogic(authorizedAuthAxiosApp);
+
 function attachTokenLogic(app: Axios) {
 	app.interceptors.request.use(async (config) => {
 		const accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
@@ -53,7 +61,7 @@ function attachRefreshLogic(app: Axios) {
 			const originalRequest = error.config;
 
 			if (error.response.status === 401 && !originalRequest._retry) {
-				if (error.response.data == "JWT Expired!") {
+				if (error.response.data === "JWT Expired!") {
 					originalRequest._retry = true;
 
 					let accessToken: string | null = localStorage.getItem(ACCESS_TOKEN_NAME);
