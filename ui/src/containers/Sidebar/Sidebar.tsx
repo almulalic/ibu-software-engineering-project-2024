@@ -46,6 +46,9 @@ export function Sidebar() {
 			case "ADMIN_ACTION_DASHBOARD":
 				path = "/admin";
 				break;
+			case "ADMIN_ACTION_DASHBOARD":
+				path = "/admin";
+				break;
 			case "USER_ACTION_EDIT":
 				path = "/me/edit";
 				break;
