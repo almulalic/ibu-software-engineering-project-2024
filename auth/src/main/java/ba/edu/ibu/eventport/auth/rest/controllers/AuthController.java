@@ -5,6 +5,7 @@ import ba.edu.ibu.eventport.auth.core.service.AuthService;
 import ba.edu.ibu.eventport.auth.core.service.UserService;
 import ba.edu.ibu.eventport.auth.rest.models.dto.CreateUserRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.EditRoleRequest;
+import ba.edu.ibu.eventport.auth.rest.models.dto.EditRoleRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.EditUserRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.UserDTO;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.GenerateTokenRequest;
