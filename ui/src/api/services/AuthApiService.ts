@@ -1,4 +1,5 @@
-import { axiosAuth } from "./Axios";
+import { createSearchParams } from "react-router-dom";
+import { axiosAuth, axiosAuthAuthorized } from "./Axios";
 import { AxiosResponse } from "axios";
 
 export class AuthAPIService {
@@ -23,6 +24,21 @@ export class AuthAPIService {
 			email: email,
 			displayName: displayName,
 			password: password,
+		});
+	}
+
+	static async getUsers(searchText: string): Promise<AxiosResponse> {
+		return axiosAuthAuthorized.get(
+			`/auth/user/search?${createSearchParams({
+				searchText: searchText,
+			})}`
+		);
+	}
+
+	static async changeRoles(userId: string, roles: string[]): Promise<AxiosResponse> {
+		return axiosAuthAuthorized.put(`/auth/user/edit/role`, {
+			userId: userId,
+			roles: roles,
 		});
 	}
 }

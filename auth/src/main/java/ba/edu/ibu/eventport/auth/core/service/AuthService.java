@@ -5,16 +5,19 @@ import ba.edu.ibu.eventport.auth.core.model.User;
 import ba.edu.ibu.eventport.auth.core.model.enums.AuthType;
 import ba.edu.ibu.eventport.auth.core.model.enums.Role;
 import ba.edu.ibu.eventport.auth.core.repository.UserRepository;
+import ba.edu.ibu.eventport.auth.exception.BadRequestException;
 import ba.edu.ibu.eventport.auth.exception.auth.TokenRefreshException;
 import ba.edu.ibu.eventport.auth.exception.auth.UnauthorizedException;
 import ba.edu.ibu.eventport.auth.exception.repository.UserExistsException;
 import ba.edu.ibu.eventport.auth.exception.repository.UserNotFoundException;
 import ba.edu.ibu.eventport.auth.rest.models.dto.CreateUserRequest;
+import ba.edu.ibu.eventport.auth.rest.models.dto.EditRoleRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.GenerateTokenRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.RefreshTokenRequest;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.RefreshTokenResponse;
 import ba.edu.ibu.eventport.auth.rest.models.dto.token.TokenResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service class for managing authentication.
@@ -35,6 +39,18 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
   private final UserRepository userRepository;
   private final RefreshTokenService refreshTokenService;
+
+  /**
+   * Retrieves users based on search criteria.
+   * Requires ADMIN authority.
+   *
+   * @param search The search criteria.
+   * @return The list of users.
+   */
+  @PreAuthorize("hasAuthority('ADMIN')")
+  public List<User> getUsers(String search) {
+    return userRepository.search(search);
+  }
 
   /**
    * Creates a new user.
@@ -51,6 +67,28 @@ public class AuthService {
     user.setAuthType(AuthType.PLAIN);
     user.setAssignedRoles(List.of(Role.GUEST, Role.ATTENDEE));
     user.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+    return userRepository.save(user);
+  }
+
+  /**
+   * Edits the roles of a user.
+   *
+   * @param dto The edit role request.
+   * @return The updated user.
+   */
+  public User editUserRoles(EditRoleRequest dto) {
+    Optional<User> possibleUser = userRepository.findById(dto.getUserId());
+    if (possibleUser.isEmpty()) {
+      throw new UserNotFoundException("User with this ID does not exist");
+    }
+
+    if (dto.getRoles() == null || dto.getRoles().isEmpty()) {
+      throw new BadRequestException("Role must be specified.");
+    }
+
+    User user = possibleUser.get();
+    user.setAssignedRoles(dto.getRoles().stream().map(Role::valueOf).toList());
 
     return userRepository.save(user);
   }

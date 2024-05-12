@@ -45,6 +45,9 @@ export function Sidebar() {
 			case "EVENT_ACTION_DELETE":
 				path = "/me/events?selectedViewType=Organized+Events&mode=delete";
 				break;
+			case "ADMIN_ACTION_DASHBOARD":
+				path = "/admin";
+				break;
 			case "USER_ACTION_LOGOUT":
 				dispatch(logout());
 				break;
@@ -92,6 +95,12 @@ export function Sidebar() {
 								<Menu.Item key="EVENT_ACTION_DELETE">Delete</Menu.Item>
 							</Menu.ItemGroup>
 						)}
+					</SubMenu>
+				)}
+
+				{isLoggedIn && userInfo?.assignedRoles.includes(Role.ADMIN) && (
+					<SubMenu key="ADMIN" icon={<AuditOutlined />} title="Admin">
+						<Menu.Item key="ADMIN_ACTION_DASHBOARD">Manage Organizers</Menu.Item>
 					</SubMenu>
 				)}
 
