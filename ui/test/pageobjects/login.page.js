@@ -25,10 +25,14 @@ class LoginPage extends Page {
         return $('//*[@id="login-right"]/div/div[1]/h1')
     }
 
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
+    get errorMessageInvalidEmailAddress() {
+        return $('//*[@id="login-form_email_help"]/div')
+    }
+
+    get errorMessagePasswordTooShort() {
+        return $('//*[@id="login-form_password_help"]/div')
+    }
+
     async login (username, password) {
         await homePage.loginButton.click()
         await this.inputUsername.setValue(username);
@@ -37,9 +41,21 @@ class LoginPage extends Page {
         await expect(homePage.navBarMainMenuLogo).toBeDisplayed()
     }
 
-    /**
-     * overwrite specific options to adapt it to page object
-     */
+    async loginWithInvalidEmailAddress (username, errorMessage) {
+        await homePage.loginButton.click()
+        await this.inputUsername.setValue(username);
+        await expect(this.errorMessageInvalidEmailAddress).toBeDisplayed()
+        await expect(this.errorMessageInvalidEmailAddress).toHaveText(errorMessage)
+    }
+
+    async loginWithShortPassword (username, password, errorMessage) {
+        await homePage.loginButton.click()
+        await this.inputUsername.setValue(username);
+        await this.inputPassword.setValue(password);
+        await expect(this.errorMessagePasswordTooShort).toBeDisplayed()
+        await expect(this.errorMessagePasswordTooShort).toHaveText(errorMessage)
+    }
+
     open () {
         return super.open('');
     }

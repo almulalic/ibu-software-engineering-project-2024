@@ -20,13 +20,15 @@ exports.config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
-    specs: [
-        './test/specs/**/*.js'
-    ],
+    specs: [],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
+    suites: {
+        negativeTest: ['./test/specs/negativeTest.e2e.js'],
+        smokeTest: ['./test/specs/smokeTest.e2e.js']
+    },
     //
     // ============
     // Capabilities

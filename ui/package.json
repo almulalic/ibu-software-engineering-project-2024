@@ -41,7 +41,7 @@
 		"start": "react-scripts start",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"wdio": "wdio run ./wdio.conf.js"
+		"wdio": "wdio run ./wdio.conf.js --suite ${npm_config_suite}"
 	},
 	"eslintConfig": {
 		"extends": [
