@@ -10,6 +10,6 @@ module.exports = class Page {
     * @param path path of the sub page (e.g. /path/to/page.html)
     */
     open (path) {
-        return browser.url(`https://ibu-software-engineering-project-2024.onrender.com/${path}`)
+        return browser.url(`https://ibu-software-engineering-project-2024.onrender.com/`)
     }
 }
