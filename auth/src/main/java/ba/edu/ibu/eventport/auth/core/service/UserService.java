@@ -112,7 +112,7 @@ public class UserService {
    * @throws UserNotFoundException if the user with the given ID does not exist.
    */
   public UserDTO updateUser(String id, EditUserRequest payload) {
-    Optional<User> user = userRepository.findById(id);
+    Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isEmpty()) {
       throw new UserNotFoundException("The user with the given ID does not exist.");
