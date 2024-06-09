@@ -91,6 +91,7 @@ export function MyEvents() {
 	const handleEditEvent = (event: any) => {
 		setSelectedEvent(event);
 		dispatch(set_create_modal_visible(true));
+		dispatch;
 	};
 
 	useEffect(() => {
