@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
+import { createSearchParams } from "react-router-dom";
 import { authorizedAxiosApp, publicAxiosApp } from "./Axios";
 import { EventRequestDTO } from "../models/event/EventRequestDTO";
-import { createSearchParams } from "react-router-dom";
 
 export class EventApiService {
 	static async getAll(
@@ -20,7 +20,7 @@ export class EventApiService {
 				searchText: searchText,
 				geoLocationCountries: geolocationCountriesURI,
 				geoLocationCities: geolocationCitiesURI,
-				categories: categoriesURI,
+				categories: !categoriesURI || categoriesURI === "null" ? "" : categoriesURI,
 				startDate: startDate,
 				endDate: endDate,
 				page: currentPage.toString(),

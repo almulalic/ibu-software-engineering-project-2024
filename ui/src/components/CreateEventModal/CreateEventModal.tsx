@@ -83,7 +83,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 	async function getCountries() {
 		const countries = await MetadatService.getCountires();
 
-		if (countries.status == 200) {
+		if (countries.status === 200) {
 			const countriesOptions = {
 				options: countries.data.map((country: any) => ({
 					label: country.name,
@@ -110,7 +110,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 	async function getCategories() {
 		const categories = await MetadatService.getCategories();
 
-		if (categories.status == 200) {
+		if (categories.status === 200) {
 			const categoriesOptions = {
 				options: categories.data.map((category: any) => ({
 					label: category.name,
@@ -119,8 +119,6 @@ export default function CreateEventModal({ event }: EventModalProps) {
 			};
 
 			setCategoriesCascader(categoriesOptions);
-
-			console.log(event?.categories);
 
 			if (searchParams.has("categories")) {
 				const paramsCategories: string[] = searchParams.get("categories")!.split(",");
@@ -145,13 +143,15 @@ export default function CreateEventModal({ event }: EventModalProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const onFinish = async (eventForm: any) => {
-		let response = eventForm
+		let response = event?.id!
 			? await EventApiService.edit(event?.id!, new EventRequestDTO().fromForm(eventForm))
 			: await EventApiService.create(new EventRequestDTO().fromForm(eventForm));
 
 		if (response.status === 200) {
 			messageApi.success(`Event successfully ${event ? "edited." : "created."}`);
-			window.location.reload();
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
 		} else if (response.status === 403) {
 			setErrorMessage("You don't have the necessary roles to create event!");
 		} else {
@@ -224,7 +224,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 						</Col>
 						<Col span={24}>
 							{imageURL.length > 0 ? (
-								<img className="create-event-modal-info-image" src={imageURL || event?.bannerImageURL} />
+								<img className="create-event-modal-info-image" src={imageURL || event?.bannerImageURL} alt="" />
 							) : (
 								<Empty
 									className="create-event-modal-info-image create-event-modal-info-image-empty"

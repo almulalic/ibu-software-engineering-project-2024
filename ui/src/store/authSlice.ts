@@ -49,6 +49,14 @@ const authSlice = createSlice({
 			localStorage.setItem(REFRESH_TOKEN_NAME, state.refreshToken!);
 			localStorage.setItem("userInfo", JSON.stringify(data.payload.user));
 		},
+		edit_sucessfull: (state, data) => {
+			state.userInfo = data.payload.user;
+			state.accessToken = data.payload.accessToken;
+			state.refreshToken = data.payload.refreshToken;
+			localStorage.setItem(ACCESS_TOKEN_NAME, state.accessToken!);
+			localStorage.setItem(REFRESH_TOKEN_NAME, state.refreshToken!);
+			localStorage.setItem("userInfo", JSON.stringify(data.payload.user));
+		},
 		logout: (state) => {
 			localStorage.removeItem(ACCESS_TOKEN_NAME);
 			localStorage.removeItem(REFRESH_TOKEN_NAME);
@@ -63,5 +71,5 @@ const authSlice = createSlice({
 	},
 });
 
-export const { login_attempt, login_failed, login_sucessfull, logout } = authSlice.actions;
+export const { login_attempt, login_failed, login_sucessfull, edit_sucessfull, logout } = authSlice.actions;
 export default authSlice.reducer;

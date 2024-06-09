@@ -9,7 +9,7 @@ export default function Router() {
 			<Route
 				path="/"
 				element={
-					<AuthorizedRoute title="" permissions={[]}>
+					<AuthorizedRoute title="Landing" permissions={[]}>
 						<Landing />
 					</AuthorizedRoute>
 				}
@@ -66,7 +66,7 @@ export default function Router() {
 			<Route
 				path="/me/edit"
 				element={
-					<AuthorizedRoute title="Edit Profile" permissions={[Role.GUEST, Role.ATTENDEE, Role.ORGANIZER, Role.ADMIN]}>
+					<AuthorizedRoute title="Edit Profile" permissions={[Role.ATTENDEE, Role.ORGANIZER, Role.ADMIN]}>
 						<EditProfile />
 					</AuthorizedRoute>
 				}

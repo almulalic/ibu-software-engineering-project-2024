@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { createSlice } from "@reduxjs/toolkit";
-import { cascaderOptionsToURI } from "../utils/utils";
+import { cascaderOptionsToURI, setSearchParam } from "../utils/utils";
 
 interface OrderDropdownItem<T> {
 	value: T;
@@ -90,9 +90,10 @@ const eventFilterSlice = createSlice({
 		},
 		page_size_change: (state, data) => {
 			state.pageSize = data.payload;
+			state.currentPage = 0;
 		},
 		geolocation_change: (state, data) => {
-			state.geolocationCountries = data.payload.filter((x: any[]) => x.length == 1);
+			state.geolocationCountries = data.payload.filter((x: any[]) => x.length === 1);
 			state.geolocationCountriesURI = cascaderOptionsToURI(state.geolocationCountries);
 
 			state.geolocationCities = data.payload.filter((x: any[]) => x.length > 1);
@@ -101,6 +102,13 @@ const eventFilterSlice = createSlice({
 		category_change: (state, data) => {
 			state.categories = data.payload;
 			state.categoriesURI = cascaderOptionsToURI(data.payload as any[]);
+			setSearchParam("categories", state.categoriesURI);
+		},
+		landing_filter_submit: (state, data) => {
+			state.categories = data.payload.categories;
+			state.categoriesURI = cascaderOptionsToURI(data.payload.categories as any[]);
+			state.startDate = data.payload.startDate;
+			state.endDate = data.payload.endDate;
 		},
 		category_change_param: (state, data) => {
 			state.categoriesURI = data.payload;
@@ -125,5 +133,6 @@ export const {
 	category_change_param,
 	date_range_change,
 	order_change,
+	landing_filter_submit,
 } = eventFilterSlice.actions;
 export default eventFilterSlice.reducer;

@@ -34,6 +34,16 @@ public class UserDTO {
   private AuthType authType;
 
   /**
+   * The first name of the user.
+   */
+  private String firstName;
+
+  /**
+   * The last name of the user.
+   */
+  private String lastName;
+
+  /**
    * The full name of the user.
    */
   private String name;
@@ -60,6 +70,8 @@ public class UserDTO {
    */
   public UserDTO(User user) {
     this.id = user.getId();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
     this.name = user.getFirstName() + " " + user.getLastName();
     this.displayName = user.getDisplayName();
     this.assignedRoles = user.getAssignedRoles();

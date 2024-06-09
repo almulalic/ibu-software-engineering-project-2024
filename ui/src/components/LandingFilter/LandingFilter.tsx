@@ -7,6 +7,9 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 
 import "./LandingFilter.scss";
 import { MetadatService } from "../../api/services";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { landing_filter_submit } from "../../store/eventFilterSlice";
 
 const { RangePicker } = DatePicker;
 const DATE_TIME_FORMAT = "YYYY-MM-DD HH";
@@ -22,6 +25,7 @@ export const LandingFilter = () => {
 	});
 
 	const [selectedCategories, setSelectedCategories] = useState([]);
+	const dispatch = useDispatch<AppDispatch>();
 
 	const [datePickerState, setDatePickerState] = useState({
 		startDate: dayjs().hour(8).minute(0),
@@ -69,6 +73,15 @@ export const LandingFilter = () => {
 	};
 
 	const onFilterSubmit = () => {
+		dispatch(
+			landing_filter_submit({
+				searchText: searchText,
+				categories: selectedCategories,
+				startDate: datePickerState.startDate.toISOString(),
+				endDate: datePickerState.endDate.toISOString(),
+			})
+		);
+
 		navigate({
 			pathname: "/events",
 			search: `?${createSearchParams({
@@ -80,8 +93,13 @@ export const LandingFilter = () => {
 		});
 	};
 
+	const handleKeyPress = (e: any) => {
+		if (e.key === "Enter") {
+			onFilterSubmit();
+		}
+	};
 	return (
-		<div className="landing-filter">
+		<div className="landing-filter" onKeyDown={handleKeyPress}>
 			<div className="landing-filter-card">
 				<Input
 					className="landing-filter-search"
