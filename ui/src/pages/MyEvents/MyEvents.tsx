@@ -91,7 +91,6 @@ export function MyEvents() {
 	const handleEditEvent = (event: any) => {
 		setSelectedEvent(event);
 		dispatch(set_create_modal_visible(true));
-		dispatch;
 	};
 
 	useEffect(() => {
@@ -123,7 +122,6 @@ export function MyEvents() {
 						loading={eventsLoading}
 						events={events}
 						totalResults={totalResults}
-						pageSize={10}
 						cardRenderer={(x: any, i: any) => {
 							if (eventViewType === "Attending Events") {
 								return <EventCard key={i} event={x.event} ticketType={x.ticketType} overview />;
