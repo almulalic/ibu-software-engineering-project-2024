@@ -1,5 +1,6 @@
 package ba.edu.ibu.eventport.auth.core.service;
 
+import ba.edu.ibu.eventport.auth.exception.BadRequestException;
 import ba.edu.ibu.eventport.auth.exception.repository.UserNotFoundException;
 import ba.edu.ibu.eventport.auth.rest.models.dto.EditUserRequest;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -113,12 +114,28 @@ public class UserService {
   public UserDTO updateUser(String id, EditUserRequest payload) {
     Optional<User> user = userRepository.findById(id);
 
-    if (user.isEmpty()) {
+    if (optionalUser.isEmpty()) {
       throw new UserNotFoundException("The user with the given ID does not exist.");
     }
 
-    User updatedUser = payload.toEntity();
-    updatedUser.setId(id);
+    Optional<User> userWithEmail = userRepository.findByEmail(payload.getEmail());
+
+    if (userWithEmail.isPresent() && !userWithEmail.get().getId().equals(id)) {
+      throw new BadRequestException("User with that email already exists");
+    }
+
+    Optional<User> userWithUsername = userRepository.findByEmail(payload.getEmail());
+
+    if (userWithUsername.isPresent() && !userWithUsername.get().getId().equals(id)) {
+      throw new BadRequestException("User with that username already exists");
+    }
+
+    User updatedUser = optionalUser.get();
+    updatedUser.setFirstName(payload.getFirstName());
+    updatedUser.setLastName(payload.getLastName());
+    updatedUser.setDisplayName(payload.getDisplayName());
+    updatedUser.setEmail(payload.getEmail());
+
     updatedUser = userRepository.save(updatedUser);
     return new UserDTO(updatedUser);
   }
@@ -139,12 +156,7 @@ public class UserService {
    * @return The UserDetailsService instance.
    */
   public UserDetailsService userDetailsService() {
-    return new UserDetailsService() {
-      @Override
-      public UserDetails loadUserByUsername(String identifier) {
-        return userRepository.findByUsernameOrEmail(identifier, identifier)
-                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
-      }
-    };
+    return identifier -> userRepository.findByUsernameOrEmail(identifier, identifier)
+             .orElseThrow(() -> new UsernameNotFoundException("User not found."));
   }
 }

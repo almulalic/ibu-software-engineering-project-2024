@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthAPIService } from "../../api/services";
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Button, Checkbox, Form, Input } from "antd";
+import { Alert, Button, Checkbox, Form, Input, message } from "antd";
 import { login_attempt, login_failed, login_sucessfull } from "../../store/authSlice";
 import { FacebookFilled, GoogleSquareFilled, InstagramOutlined, MailOutlined } from "@ant-design/icons";
 
@@ -20,6 +20,7 @@ export type LoginFormData = {
 export function Login() {
 	const { loading } = useSelector((state: RootState) => state.auth);
 	const [loginResponse, setLoginResponse] = useState("");
+	const [messageApi, contextHolder] = message.useMessage();
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +39,10 @@ export function Login() {
 		}
 	};
 
+	const onOAuthClick = () => {
+		messageApi.warning("Not yet implemented!");
+	};
+
 	return (
 		<div id="login">
 			<div id="login-left">
@@ -52,13 +57,13 @@ export function Login() {
 					</div>
 
 					<div className="login-form-oauth-buttons">
-						<Button className="login-form-oauth-button" size="large" disabled={loading}>
+						<Button className="login-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<GoogleSquareFilled />
 						</Button>
-						<Button className="login-form-oauth-button" size="large" disabled={loading}>
+						<Button className="login-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<FacebookFilled />
 						</Button>
-						<Button className="login-form-oauth-button" size="large" disabled={loading}>
+						<Button className="login-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<InstagramOutlined />
 						</Button>
 					</div>
@@ -95,7 +100,9 @@ export function Login() {
 								<Checkbox name="rememberMe" checked disabled={loading}>
 									Remember me
 								</Checkbox>
-								<Link disabled={loading}>Forgot your password?</Link>
+								<Link disabled={loading} onClick={onOAuthClick}>
+									Forgot your password?
+								</Link>
 							</div>
 						</Form.Item>
 						<Form.Item>
@@ -120,6 +127,7 @@ export function Login() {
 					</div>
 				</div>
 			</div>
+			{contextHolder}
 		</div>
 	);
 }

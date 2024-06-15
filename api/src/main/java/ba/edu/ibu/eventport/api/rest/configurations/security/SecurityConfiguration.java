@@ -23,46 +23,46 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-  public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter) {
-    this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-  }
+    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http
-             .cors(Customizer.withDefaults())
-             .authorizeHttpRequests(request -> request
-                                                 .requestMatchers(HttpMethod.OPTIONS)
-                                                 .permitAll()
-                                                 .requestMatchers(HttpMethod.GET, "/api/event/**")
-                                                 .permitAll()
-                                                 .requestMatchers(HttpMethod.GET, "/api/metadata/**")
-                                                 .permitAll()
-                                                 .anyRequest()
-                                                 .authenticated()
-             )
-             .csrf(AbstractHttpConfigurer::disable)
-             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-             .authenticationProvider(authenticationProvider())
-             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-             .build();
-  }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                 .cors(Customizer.withDefaults())
+                 .authorizeHttpRequests(request -> request
+                                                     .requestMatchers(HttpMethod.OPTIONS)
+                                                     .permitAll()
+                                                     .requestMatchers(HttpMethod.GET, "/api/event/**")
+                                                     .permitAll()
+                                                     .requestMatchers(HttpMethod.GET, "/api/metadata/**")
+                                                     .permitAll()
+                                                     .anyRequest()
+                                                     .authenticated()
+                 )
+                 .csrf(AbstractHttpConfigurer::disable)
+                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                 .authenticationProvider(authenticationProvider())
+                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                 .build();
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Bean
-  public AuthenticationProvider authenticationProvider() {
-    return new JwtAuthenticationProvider();
-  }
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new JwtAuthenticationProvider();
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-    throws Exception {
-    return config.getAuthenticationManager();
-  }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+      throws Exception {
+        return config.getAuthenticationManager();
+    }
 }

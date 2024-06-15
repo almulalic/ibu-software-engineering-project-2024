@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm install -g parcel-bundler
+
 RUN npm run build
 
 FROM node:14-alpine

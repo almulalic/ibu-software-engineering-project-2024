@@ -1,10 +1,10 @@
-import { Popconfirm, message } from "antd";
 import { DateTime } from "luxon";
-import { Ref, RefObject, useState } from "react";
+import { useState } from "react";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
-import { Event } from "../../api/models/event/Event";
+import { Popconfirm, message } from "antd";
 import EventModal from "../EventModal/EventModal";
+import { Event } from "../../api/models/event/Event";
 import { TicketType } from "../../api/models/ticket/TicketType";
 import { EventApiService } from "../../api/services/EventApiService";
 import { EventOverviewModal } from "../EventOverviewModal/EventOverviewModal";
@@ -104,7 +104,7 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 	return (
 		<>
 			<div className="event-card" onClick={() => setModalOpen(true)}>
-				<img className="event-card-img" src={event.bannerImageURL} />
+				<img className="event-card-img" src={event.bannerImageURL} alt="" />
 				<span
 					className={`event-card-edit event-card-editing-${isEditing}`}
 					onClick={(e) => {
@@ -152,7 +152,7 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 						</span>
 						<span className="event-card-label-name">
 							<Marquee speed={25} pauseOnHover={true} direction="right">
-								{event.geoLocation.country}, {event.geoLocation.city} @ {event.venue}
+								{event.geoLocation.country}, {event.geoLocation.city} @ {event.venue} {"   "}
 							</Marquee>
 						</span>
 					</div>

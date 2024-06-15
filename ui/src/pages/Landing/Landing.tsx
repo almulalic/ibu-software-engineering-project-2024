@@ -30,7 +30,7 @@ export function Landing() {
 					return;
 			}
 		}
-	}, []);
+	}, [messageApi, searchParams]);
 
 	return (
 		<Layout id="landing">

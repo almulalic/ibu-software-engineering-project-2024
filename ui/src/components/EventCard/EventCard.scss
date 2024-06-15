@@ -3,7 +3,7 @@
 
 .event-card {
 	width: 250px !important;
-	max-width: 350px;
+	max-width: 375px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -150,9 +150,9 @@
 			}
 
 			&-name {
-				line-height: 1;
+				line-height: 1.2;
 				font-size: 0.8rem;
-				overflow: scroll;
+				overflow: hidden;
 			}
 		}
 	}
@@ -160,4 +160,9 @@
 	&:hover {
 		background-color: rgba(39, 39, 39, 0.8);
 	}
+}
+
+.event-card-empty:hover {
+	cursor: unset;
+	background-color: rgb(49, 49, 49);
 }

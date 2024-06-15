@@ -24,3 +24,9 @@ export function findFirstMultipleOf(startingNumber: number, target: number): num
 
 	return currentNumber;
 }
+
+export function setSearchParam(key: string, value: string) {
+	const currentUrl = new URL(window.location.href);
+	currentUrl.searchParams.set(key, value);
+	window.history.replaceState({}, "", currentUrl.href);
+}

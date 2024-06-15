@@ -11,10 +11,16 @@ interface ICustomRouteProps {
 }
 
 export default function AuthorizedRoute({ permissions, title, children }: ICustomRouteProps) {
-	const { userInfo, isLoggedIn } = useSelector((state: RootState) => state.auth);
+	const { userInfo } = useSelector((state: RootState) => state.auth);
 
-	if (permissions.length !== 0 && userInfo?.assignedRoles.every((x) => !permissions.includes(x))) {
-		return <Login />;
+	if (permissions.length !== 0) {
+		if (userInfo) {
+			if (userInfo.assignedRoles.every((x) => !permissions.includes(x))) {
+				return <Login />;
+			}
+		} else {
+			return <Login />;
+		}
 	}
 
 	document.title = `EventPort | ${title}`;

@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 import Link from "antd/es/typography/Link";
 import { useNavigate } from "react-router-dom";
 import { AuthAPIService } from "../../api/services";
-import { Alert, Button, Checkbox, Form, Input } from "antd";
+import { Alert, Button, Checkbox, Form, Input, message } from "antd";
 import { FacebookFilled, GoogleSquareFilled, InstagramOutlined, MailOutlined } from "@ant-design/icons";
 
 import "./SignUp.scss";
@@ -19,6 +19,7 @@ export type SignUpFormData = {
 export function SignUp() {
 	const [loading, setLoading] = useState(false);
 	const [response, setResponse] = useState("");
+	const [messageApi, contextHolder] = message.useMessage();
 
 	const navigate = useNavigate();
 
@@ -32,15 +33,18 @@ export function SignUp() {
 			data.email,
 			data.password
 		);
-		console.log(response);
 
-		if (response.status == 200) {
+		if (response.status === 200) {
 			setLoading(false);
 			navigate("/login");
 		} else {
 			setLoading(false);
 			setResponse(`${response.status}: ${response.data.message}`);
 		}
+	};
+
+	const onOAuthClick = () => {
+		messageApi.warning("Not yet implemented!");
 	};
 
 	return (
@@ -62,16 +66,17 @@ export function SignUp() {
 					</div>
 
 					<div className="signup-form-oauth-buttons">
-						<Button className="signup-form-oauth-button" size="large" disabled={loading}>
+						<Button className="signup-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<GoogleSquareFilled />
 						</Button>
-						<Button className="signup-form-oauth-button" size="large" disabled={loading}>
+						<Button className="signup-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<FacebookFilled />
 						</Button>
-						<Button className="signup-form-oauth-button" size="large" disabled={loading}>
+						<Button className="signup-form-oauth-button" size="large" disabled={loading} onClick={onOAuthClick}>
 							<InstagramOutlined />
 						</Button>
 					</div>
+
 					<div className="signup-form-or-design">
 						<div className="line"></div>
 						<div className="or-text">or</div>
@@ -88,21 +93,36 @@ export function SignUp() {
 						<Form.Item
 							label="First name"
 							name="firstName"
-							rules={[{ required: true, message: "Please enter your first name!" }]}
+							rules={[
+								{ required: true, message: "Please enter your first name!" },
+								{ min: 3, message: "First name must be at least 3 characters long!" },
+								{ pattern: /^[a-zA-Z0-9]*$/, message: "First name must contain only alphanumeric characters!" },
+							]}
 						>
 							<Input placeholder="John" disabled={loading} />
 						</Form.Item>
 						<Form.Item
 							label="Last name"
 							name="lastName"
-							rules={[{ required: true, message: "Please enter your last name!" }]}
+							rules={[
+								{ required: true, message: "Please enter your last name!" },
+								{ min: 3, message: "Last name must be at least 3 characters long!" },
+								{ pattern: /^[a-zA-Z0-9]*$/, message: "Last name must contain only alphanumeric characters!" },
+							]}
 						>
 							<Input placeholder="Doe" disabled={loading} />
 						</Form.Item>
 						<Form.Item
 							label="Display name"
 							name="displayName"
-							rules={[{ required: true, message: "Please enter your display name!" }]}
+							rules={[
+								{ required: true, message: "Please enter your display name!" },
+								{ min: 3, message: "Display name must be at least 3 characters long!" },
+								{
+									pattern: /^[a-zA-Z0-9_-]*$/,
+									message: "Display name must contain only alphanumeric characters, underscores, and hyphens!",
+								},
+							]}
 						>
 							<Input placeholder="john_doe" disabled={loading} />
 						</Form.Item>
@@ -146,6 +166,7 @@ export function SignUp() {
 					</Form>
 				</div>
 			</div>
+			{contextHolder}
 		</div>
 	);
 }

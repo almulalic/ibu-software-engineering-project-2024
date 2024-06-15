@@ -2,12 +2,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?music",
 		"capacity": 500,
-		"dateTime": {
-			"$date": "2024-01-25T18:00:00.000Z"
-		},
+		"dateTime": "2024-01-25T18:00:00.000Z",
 		"description": "Join us for a day of music and fun!",
 		"venue": "Central Park",
-
 		"name": "Music Festival",
 		"participants": [],
 		"categories": ["Music and Instruments"],
@@ -38,12 +35,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?tech",
 		"capacity": 300,
-		"dateTime": {
-			"$date": "2024-02-05T09:00:00.000Z"
-		},
+		"dateTime": "2024-02-05T09:00:00.000Z",
 		"description": "Explore the latest in technology and innovation.",
 		"venue": "Tech Center",
-
 		"name": "Tech Conference",
 		"participants": [],
 		"categories": ["Computers and Accessories"],
@@ -67,12 +61,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?food",
 		"capacity": 400,
-		"dateTime": {
-			"$date": "2024-03-10T12:00:00.000Z"
-		},
+		"dateTime": "2024-03-10T12:00:00.000Z",
 		"description": "Savor the flavors of various cuisines!",
 		"venue": "Downtown Square",
-
 		"name": "Food Festival",
 		"participants": [],
 		"categories": ["Food and Grocery"],
@@ -96,12 +87,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?fitness",
 		"capacity": 200,
-		"dateTime": {
-			"$date": "2024-04-20T07:30:00.000Z"
-		},
+		"dateTime": "2024-04-20T07:30:00.000Z",
 		"description": "Get active and take on the fitness challenge!",
 		"venue": "City Park",
-
 		"name": "Fitness Challenge",
 		"participants": [],
 		"categories": ["Fitness and Wellness"],
@@ -125,12 +113,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?art",
 		"capacity": 150,
-		"dateTime": {
-			"$date": "2024-05-15T14:00:00.000Z"
-		},
+		"dateTime": "2024-05-15T14:00:00.000Z",
 		"description": "Explore the beauty of various artworks.",
 		"venue": "Art Gallery",
-
 		"name": "Art Exhibition",
 		"participants": [],
 		"categories": ["Art and Collectibles"],
@@ -154,12 +139,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?science",
 		"capacity": 250,
-		"dateTime": {
-			"$date": "2024-06-08T10:00:00.000Z"
-		},
+		"dateTime": "2024-06-08T10:00:00.000Z",
 		"description": "Discover the wonders of science!",
 		"venue": "Science Center",
-
 		"name": "Science Fair",
 		"participants": [],
 		"categories": ["Books and Literature"],
@@ -183,12 +165,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?film",
 		"capacity": 350,
-		"dateTime": {
-			"$date": "2024-07-12T17:30:00.000Z"
-		},
+		"dateTime": "2024-07-12T17:30:00.000Z",
 		"description": "Experience a showcase of amazing films.",
 		"venue": "Cinema Plaza",
-
 		"name": "Film Festival",
 		"participants": [],
 		"categories": ["Movies and Entertainment"],
@@ -212,12 +191,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?gaming",
 		"capacity": 300,
-		"dateTime": {
-			"$date": "2024-08-25T13:00:00.000Z"
-		},
+		"dateTime": "2024-08-25T13:00:00.000Z",
 		"description": "Immerse yourself in the world of gaming.",
 		"venue": "Gaming Center",
-
 		"name": "Gaming Expo",
 		"participants": [],
 		"categories": ["Toys and Games"],
@@ -241,12 +217,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?fashion",
 		"capacity": 200,
-		"dateTime": {
-			"$date": "2024-09-18T19:00:00.000Z"
-		},
+		"dateTime": "2024-09-18T19:00:00.000Z",
 		"description": "Witness the latest trends on the runway.",
 		"venue": "Fashion Hall",
-
 		"name": "Fashion Show",
 		"participants": [],
 		"categories": ["Clothing and Apparel"],
@@ -270,12 +243,9 @@
 	{
 		"bannerImageURL": "https://source.unsplash.com/800x600/?nature",
 		"capacity": 150,
-		"dateTime": {
-			"$date": "2024-10-30T08:30:00.000Z"
-		},
+		"dateTime": "2024-10-30T08:30:00.000Z",
 		"description": "Discuss and address environmental issues.",
 		"venue": "Environmental Center",
-
 		"name": "Environmental Summit",
 		"participants": [],
 		"categories": ["Home and Garden"],

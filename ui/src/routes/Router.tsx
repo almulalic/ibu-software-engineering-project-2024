@@ -9,7 +9,7 @@ export default function Router() {
 			<Route
 				path="/"
 				element={
-					<AuthorizedRoute title="" permissions={[]}>
+					<AuthorizedRoute title="Landing" permissions={[]}>
 						<Landing />
 					</AuthorizedRoute>
 				}

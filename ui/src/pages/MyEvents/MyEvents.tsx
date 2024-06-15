@@ -11,6 +11,8 @@ import EventCard from "../../components/EventCard/EventCard";
 import EventsList from "../../containers/Events/EventsList";
 import CreateEventModal from "../../components/CreateEventModal/CreateEventModal";
 import { set_create_modal_visible } from "../../store/eventPageSlice";
+import { widthThresholds } from "../../constants";
+import { findFirstMultipleOf } from "../../utils";
 
 export function MyEvents() {
 	const { userInfo } = useSelector((state: RootState) => state.auth);
@@ -51,7 +53,15 @@ export function MyEvents() {
 		}
 
 		if (response!.status === 200) {
-			setEvents(response!.data);
+			const events = response!.data;
+
+			const treshold = widthThresholds.filter((x) => window.innerWidth <= x.width);
+			const cardLimit = findFirstMultipleOf(events.length, treshold[treshold.length - 1].maxCards)!;
+			for (let i = events.length; i < cardLimit; ++i) {
+				events.push("GHOST");
+			}
+
+			setEvents(events);
 			setTotalResults(response!.data.totalElements);
 			setEventsLoading(false);
 		} else {
@@ -110,6 +120,7 @@ export function MyEvents() {
 						loading={eventsLoading}
 						events={events}
 						totalResults={totalResults}
+						pageSize={10}
 						cardRenderer={(x: any, i: any) => {
 							if (eventViewType === "Attending Events") {
 								return <EventCard key={i} event={x.event} ticketType={x.ticketType} overview />;

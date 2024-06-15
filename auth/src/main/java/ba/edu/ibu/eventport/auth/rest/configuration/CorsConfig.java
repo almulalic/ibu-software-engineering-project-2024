@@ -23,14 +23,15 @@ public class CorsConfig {
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.setAllowedOrigins(allowedOrigins);
-    corsConfiguration.setAllowedMethods(allowedMethods);
-    corsConfiguration.setAllowedHeaders(allowedHeaders);
+      CorsConfiguration corsConfiguration = new CorsConfiguration();
+      corsConfiguration.setAllowCredentials(true); // allow credentials
+      corsConfiguration.addAllowedOriginPattern("*"); // allow all origins
+      corsConfiguration.addAllowedMethod("*"); // allow all HTTP methods
+      corsConfiguration.addAllowedHeader("*"); // allow all headers
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", corsConfiguration);
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/**", corsConfiguration);
 
-    return source;
+      return source;
   }
 }

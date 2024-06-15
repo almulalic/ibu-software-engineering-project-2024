@@ -43,23 +43,10 @@ export default function EventFilter({ eventsLoading }: EventFilterState) {
 		options: [],
 	});
 
-	async function loadFilterMetadata() {
-		dispatch(set_filters_loading());
-
-		await getCountries();
-		await getCategories();
-
-		dispatch(set_filters_loaded());
-	}
-
-	useEffect(() => {
-		loadFilterMetadata();
-	}, []);
-
 	async function getCountries() {
 		const countries = await MetadatService.getCountires();
 
-		if (countries.status == 200) {
+		if (countries.status === 200) {
 			setCountryCascader({
 				options: countries.data.map((country: any) => ({
 					label: country.name,
@@ -73,7 +60,7 @@ export default function EventFilter({ eventsLoading }: EventFilterState) {
 	async function getCategories() {
 		const categories = await MetadatService.getCategories();
 
-		if (categories.status == 200) {
+		if (categories.status === 200) {
 			const categoriesOptions = {
 				options: categories.data.map((category: any) => ({
 					label: category.name,
@@ -85,7 +72,6 @@ export default function EventFilter({ eventsLoading }: EventFilterState) {
 
 			if (searchParams.has("categories")) {
 				const paramsCategories: string[] = searchParams.get("categories")!.split(",");
-
 				form.setFieldValue(
 					"categories",
 					categoriesOptions.options.filter((x: any) => paramsCategories.includes(x.value)).map((x: any) => [x.value])
@@ -93,6 +79,19 @@ export default function EventFilter({ eventsLoading }: EventFilterState) {
 			}
 		}
 	}
+
+	useEffect(() => {
+		async function loadFilterMetadata() {
+			dispatch(set_filters_loading());
+
+			await getCountries();
+			await getCategories();
+
+			dispatch(set_filters_loaded());
+		}
+
+		loadFilterMetadata();
+	}, [dispatch]);
 
 	const handlePageSizeChange = (value: any) => {
 		dispatch(page_size_change(value));

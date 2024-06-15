@@ -17,16 +17,12 @@ import ba.edu.ibu.eventport.api.rest.models.dto.EventRequestDTO;
 import ba.edu.ibu.eventport.api.rest.models.dto.EventViewDTO;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,226 +36,229 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class EventServiceTests {
 
-  @Mock
-  private EventRepository eventRepository;
+    @Mock
+    private EventRepository eventRepository;
 
-  @Mock
-  private FilterableEventRepositoryImpl filterableEventRepository;
+    @Mock
+    private FilterableEventRepositoryImpl filterableEventRepository;
 
-  @Mock
-  private CountryRepository countryRepository;
+    @Mock
+    private CountryRepository countryRepository;
 
-  @Mock
-  private CategoryRepository categoryRepository;
+    @Mock
+    private CategoryRepository categoryRepository;
 
-  @Mock
-  private TicketRepository ticketRepository;
+    @Mock
+    private TicketRepository ticketRepository;
 
-  @InjectMocks
-  private EventService eventService;
+    @InjectMocks
+    private EventService eventService;
 
-  private ObjectId adminId;
+    private ObjectId adminId;
 
-  private ObjectId genericEventId;
+    private ObjectId genericEventId;
 
-  private Event genericEvent;
+    private Event genericEvent;
 
-  @BeforeAll
-  public void init() {
-    adminId = new ObjectId("5faabb7d8f388d8320a2c3a1");
-    genericEventId = new ObjectId("5faabb7d8f388d8320a2c3a2");
-    genericEvent = Event.Builder()
-                     .withId(genericEventId)
-                     .withName("Koncert Dine Merlina")
-                     .withDescription("54 koncert Dine Merline u Beogradu.")
-                     .withCategories(List.of("Music"))
-                     .withDateTime(LocalDateTime.now())
-                     .withVenue("Stark Arena")
-                     .withGeoLocation(new GeoLocation("SR", "Srbija", "Beograd"))
-                     .withCapacity(100)
-                     .withCreatedBy(adminId)
-                     .withParticipants(List.of())
-                     .withBannerImageURL("https://starkarena.co.rs/data/DM_BEOGRAD_1140x760_Banner_4.jpg")
-                     .withTicketTypes(List.of(new TicketType("Normal", "Normal", "EUR", 100, 100)))
-                     .build();
+    @BeforeAll
+    public void init() {
+        adminId = new ObjectId("5faabb7d8f388d8320a2c3a1");
+        genericEventId = new ObjectId("5faabb7d8f388d8320a2c3a2");
+        genericEvent = Event.Builder()
+                         .withId(genericEventId)
+                         .withName("Koncert Dine Merlina")
+                         .withDescription("54 koncert Dine Merline u Beogradu.")
+                         .withCategories(List.of("Music"))
+                         .withDateTime(LocalDateTime.now())
+                         .withVenue("Stark Arena")
+                         .withGeoLocation(new GeoLocation("SR", "Srbija", "Beograd"))
+                         .withCapacity(100)
+                         .withCreatedBy(adminId)
+                         .withParticipants(List.of())
+                         .withBannerImageURL("https://starkarena.co.rs/data/DM_BEOGRAD_1140x760_Banner_4.jpg")
+                         .withTicketTypes(List.of(new TicketType("Normal", "Normal", "EUR", 100, 100)))
+                         .build();
 
-    when(categoryRepository
-           .findFirstByName("Music")
-    ).thenReturn(
-      Optional.of(new Category(new ObjectId(), "Music"))
-    );
+        when(categoryRepository
+               .findFirstByName("Music")
+        ).thenReturn(
+          Optional.of(new Category(new ObjectId(), "Music"))
+        );
 
-    when(countryRepository
-           .findCountryByIso2CodeAndCitiesContaining("SR", "Beograd")
-    ).thenReturn(
-      Optional.of(new Country("SR", "Srbija", List.of("Beograd")))
-    );
+        when(countryRepository
+               .findCountryByIso2CodeAndCitiesContaining("SR", "Beograd")
+        ).thenReturn(
+          Optional.of(new Country("SR", "Srbija", List.of("Beograd")))
+        );
 
-    MockitoAnnotations.openMocks(EventServiceTests.class);
-    eventService = new EventService(
-      eventRepository,
-      filterableEventRepository,
-      countryRepository,
-      categoryRepository,
-      ticketRepository
-    );
-  }
+        MockitoAnnotations.openMocks(EventServiceTests.class);
+        eventService = new EventService(
+          eventRepository,
+          filterableEventRepository,
+          countryRepository,
+          categoryRepository,
+          ticketRepository
+        );
+    }
 
-  @Test
-  void getEventByIdWithExistingEvent() {
-    String eventId = genericEvent.getId().toString();
+    @Test
+    void getEventByIdWithExistingEvent() {
+        String eventId = genericEvent.getId().toString();
 
-    EventViewDTO expectedEventViewDTO = new EventViewDTO(genericEvent);
+        EventViewDTO expectedEventViewDTO = new EventViewDTO(genericEvent);
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.of(genericEvent));
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(genericEvent));
 
-    assertThat(expectedEventViewDTO).usingRecursiveComparison()
-      .isEqualTo(eventService.getEventById(eventId));
-    verify(eventRepository).findById(eventId);
-  }
+        assertThat(expectedEventViewDTO).usingRecursiveComparison()
+          .isEqualTo(eventService.getEventById(eventId));
+        verify(eventRepository).findById(eventId);
+    }
 
-  @Test
-  void getEventByIdWithNonExistingEvent() {
-    String eventId = "nonExistingId";
+    @Test
+    void getEventByIdWithNonExistingEvent() {
+        String eventId = "nonExistingId";
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
-    assertThrows(ResourceNotFoundException.class, () -> eventService.getEventById(eventId));
-    verify(eventRepository).findById(eventId);
-  }
+        assertThrows(ResourceNotFoundException.class, () -> eventService.getEventById(eventId));
+        verify(eventRepository).findById(eventId);
+    }
 
-  @Test
-  void addEvent_withValidation() {
-    EventRequestDTO eventRequestDTO = EventRequestDTO.Builder()
-                                        .withName("Koncert Dine Merlina")
-                                        .withDescription("54 koncert Dine Merline u Beogradu.")
-                                        .withCategories(List.of("Muzika"))
-                                        .withDateTime(LocalDateTime.now())
-                                        .withVenue("Stark Arena")
-                                        .withGoogleMapsURL(
-                                          "https://www.google.com/maps?sca_esv=602517774&output=search&q=stark+arena&source=lnms&entry=mc")
-                                        .withCountryIso2Code("BA")
-                                        .withCity("Beograd")
-                                        .withCapacity(100)
-                                        .withBannerImageURL(
-                                          "https://starkarena.co.rs/data/DM_BEOGRAD_1140x760_Banner_4.jpg")
-                                        .withTicketTypes(
-                                          List.of(
-                                            new TicketType("Normal", "Normal", "EUR", 75, 100
+    @Test
+    void addEvent_withValidation() {
+        EventRequestDTO eventRequestDTO = EventRequestDTO.Builder()
+                                            .withName("Koncert Dine Merlina")
+                                            .withDescription("54 koncert Dine Merline u Beogradu.")
+                                            .withCategories(List.of("Muzika"))
+                                            .withDateTime(LocalDateTime.now())
+                                            .withVenue("Stark Arena")
+                                            .withGoogleMapsURL(
+                                              "https://www.google.com/maps?sca_esv=602517774&output=search&q=stark+arena&source=lnms&entry=mc")
+                                            .withCountryIso2Code("BA")
+                                            .withCity("Beograd")
+                                            .withCapacity(100)
+                                            .withBannerImageURL(
+                                              "https://starkarena.co.rs/data/DM_BEOGRAD_1140x760_Banner_4.jpg")
+                                            .withTicketTypes(
+                                              List.of(
+                                                new TicketType("Normal", "Normal", "EUR", 75, 100
+                                                )
+                                              )
                                             )
-                                          )
-                                        )
-                                        .build();
+                                            .build();
 
-    Event event = eventRequestDTO.toEntity();
-    event.setId(new ObjectId("65b8493b19b8b1ea23ebc891"));
+        Event event = eventRequestDTO.toEntity();
+        event.setId(new ObjectId("65b8493b19b8b1ea23ebc891"));
 
-    when(eventRepository.save(any(Event.class))).thenReturn(event);
+        when(eventRepository.save(any(Event.class))).thenReturn(event);
 
-    assertThrows(
-      BadRequestException.class,
-      () -> eventService.addEvent(eventRequestDTO, adminId.toString())
-    );
+        assertThrows(
+          BadRequestException.class,
+          () -> eventService.addEvent(eventRequestDTO, adminId.toString())
+        );
 
-    eventRequestDTO.setCategories(List.of("Music"));
+        eventRequestDTO.setCategories(List.of("Music"));
 
-    assertThrows(
-      BadRequestException.class,
-      () -> eventService.addEvent(eventRequestDTO, adminId.toString())
-    );
+        assertThrows(
+          BadRequestException.class,
+          () -> eventService.addEvent(eventRequestDTO, adminId.toString())
+        );
 
-    eventRequestDTO.setCountryIso2Code("SR");
+        eventRequestDTO.setCountryIso2Code("SR");
 
-    assertThrows(
-      BadRequestException.class,
-      () -> eventService.addEvent(eventRequestDTO, adminId.toString())
-    );
+        assertThrows(
+          BadRequestException.class,
+          () -> eventService.addEvent(eventRequestDTO, adminId.toString())
+        );
 
-    eventRequestDTO.setCapacity(75);
+        eventRequestDTO.setCapacity(75);
 
-    assertThat(new EventViewDTO(event)).usingRecursiveComparison()
-      .isEqualTo(eventService.addEvent(eventRequestDTO, adminId.toString()));
+        assertThat(new EventViewDTO(event)).usingRecursiveComparison()
+          .isEqualTo(eventService.addEvent(eventRequestDTO, adminId.toString()));
 
-    verify(eventRepository).save(any(Event.class));
-  }
+        verify(eventRepository).save(any(Event.class));
+    }
 
-  @Test
-  void testBuyTicket_WithValidation() {
-    String eventId = genericEvent.getId().toString();
+    @Test
+    void testBuyTicket_WithValidation() {
+        String eventId = genericEvent.getId().toString();
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.ofNullable(genericEvent));
+        when(eventRepository.findById(eventId)).thenReturn(Optional.ofNullable(genericEvent));
 
-    assertThrows(
-      ResourceNotFoundException.class,
-      () -> eventService.buyTicket(adminId.toString(), "65b855edf1a12c7f78b61df4", "Norma")
-    );
+        assertThrows(
+          ResourceNotFoundException.class,
+          () -> eventService.buyTicket(adminId.toString(), "65b855edf1a12c7f78b61df4", "Norma")
+        );
 
-    assertThrows(
-      BadRequestException.class,
-      () -> eventService.buyTicket(adminId.toString(), eventId, "Norma")
-    );
+        assertThrows(
+          BadRequestException.class,
+          () -> eventService.buyTicket(adminId.toString(), eventId, "Norma")
+        );
 
-    eventService.buyTicket(adminId.toString(), eventId, "Normal");
+        eventService.buyTicket(adminId.toString(), eventId, "Normal");
 
-    verify(ticketRepository).findById(eventId);
-    verify(eventRepository, never()).save(any());
-  }
+        verify(ticketRepository).findById(eventId);
+        verify(eventRepository, never()).save(any());
+    }
 
 
-  @Test
-  void updateEventWithNonExistingEvent() {
-    String eventId = "suygd97qgwsdashulllllkkk";
+    @Test
+    void updateEventWithNonExistingEvent() {
+        String eventId = "suygd97qgwsdashulllllkkk";
 
-    EventRequestDTO updatedEventRequestDTO = EventRequestDTO.Builder()
-                                               .withName("Koncert Dine Merlina")
-                                               .withDescription("54 koncert Dine Merline u Beogradu.")
-                                               .withCategories(List.of("Music"))
-                                               .withDateTime(LocalDateTime.now())
-                                               .withVenue("Stark Arena Nova")
-                                               .withGoogleMapsURL("")
-                                               .withCountryIso2Code("SR")
-                                               .withCity("Beograd")
-                                               .withCapacity(75)
-                                               .withBannerImageURL("")
-                                               .withTicketTypes(List.of(new TicketType(
-                                                 "Normal",
-                                                 "Normal",
-                                                 "EUR",
-                                                 75,
-                                                 100
-                                               )))
-                                               .build();
+        EventRequestDTO updatedEventRequestDTO = EventRequestDTO.Builder()
+                                                   .withName("Koncert Dine Merlina")
+                                                   .withDescription("54 koncert Dine Merline u Beogradu.")
+                                                   .withCategories(List.of("Music"))
+                                                   .withDateTime(LocalDateTime.now())
+                                                   .withVenue("Stark Arena Nova")
+                                                   .withGoogleMapsURL("")
+                                                   .withCountryIso2Code("SR")
+                                                   .withCity("Beograd")
+                                                   .withCapacity(75)
+                                                   .withBannerImageURL("")
+                                                   .withTicketTypes(List.of(new TicketType(
+                                                     "Normal",
+                                                     "Normal",
+                                                     "EUR",
+                                                     75,
+                                                     100
+                                                   )))
+                                                   .build();
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
-    assertThrows(ResourceNotFoundException.class, () -> eventService.updateEvent(updatedEventRequestDTO));
+        assertThrows(
+          ResourceNotFoundException.class,
+          () -> eventService.updateEvent(updatedEventRequestDTO.getId(), updatedEventRequestDTO)
+        );
 
-    verify(eventRepository).findById(eventId);
-    verify(eventRepository, never()).save(any());
-  }
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository, never()).save(any());
+    }
 
-  @Test
-  void deleteEvent_WithExistingEvent() {
-    String eventId = "wouegf08ndqnq9ni9";
-    Event existingEvent = new Event();
+    @Test
+    void deleteEvent_WithExistingEvent() {
+        String eventId = "wouegf08ndqnq9ni9";
+        Event existingEvent = new Event();
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.of(existingEvent));
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(existingEvent));
 
-    eventService.deleteEvent(eventId);
+        eventService.deleteEvent(eventId);
 
-    verify(eventRepository).findById(eventId);
-    verify(eventRepository).delete(existingEvent);
-  }
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository).delete(existingEvent);
+    }
 
-  @Test
-  void deleteEvent_WithNonExistingEvent() {
-    String eventId = "nonExistingId";
+    @Test
+    void deleteEvent_WithNonExistingEvent() {
+        String eventId = "nonExistingId";
 
-    when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
+        when(eventRepository.findById(eventId)).thenReturn(Optional.empty());
 
-    eventService.deleteEvent(eventId);
+        eventService.deleteEvent(eventId);
 
-    verify(eventRepository).findById(eventId);
-    verify(eventRepository, never()).delete(any());
-  }
+        verify(eventRepository).findById(eventId);
+        verify(eventRepository, never()).delete(any());
+    }
 }
