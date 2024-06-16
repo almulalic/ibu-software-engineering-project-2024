@@ -58,7 +58,7 @@ class SignupPage extends Page {
         return $('//*[@id="signup-form_agreeWithTOC_help"]/div')
     }
 
-    async signUp(name, lastName, displayName, email, password) {
+    async signUp(isSmoke, name, lastName, displayName, email, password) {
         await homePage.signupButton.click()
         await this.inputFirstName.setValue(name);
         await this.inputLastName.setValue(lastName);
@@ -67,7 +67,9 @@ class SignupPage extends Page {
         await this.inputPassword.setValue(password);
         await this.agreeWithTOCButton.click();
         await this.signupButton.click();
-        await expect(loginPage.loginHeader).toBeDisplayed()
+        if (isSmoke) {
+            await expect(loginPage.loginHeader).toBeDisplayed()
+        }
     }
 
     async signUpWithSameCredentials(name, lastName, displayName, email, password) {

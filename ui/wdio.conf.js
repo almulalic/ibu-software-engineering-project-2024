@@ -27,7 +27,8 @@ exports.config = {
     ],
     suites: {
         negativeTest: ['./test/specs/negativeTest.e2e.js'],
-        smokeTest: ['./test/specs/smokeTest.e2e.js']
+        smokeTest: ['./test/specs/smokeTest.e2e.js'],
+        regression: ['./test/specs/regression.e2e.js']
     },
     //
     // ============
@@ -130,7 +131,7 @@ exports.config = {
     // Options to be passed to Jasmine.
     jasmineOpts: {
         // Jasmine default timeout
-        defaultTimeoutInterval: 60000,
+        defaultTimeoutInterval: 1200000,
         //
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time

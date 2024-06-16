@@ -33,8 +33,10 @@ class LoginPage extends Page {
         return $('//*[@id="login-form_password_help"]/div')
     }
 
-    async login (username, password) {
-        await homePage.loginButton.click()
+    async login (isSmoke, username, password) {
+        if(isSmoke) {
+            await homePage.loginButton.click()
+        }
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.submitButton.click();
