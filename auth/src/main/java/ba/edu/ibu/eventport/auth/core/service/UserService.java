@@ -124,7 +124,7 @@ public class UserService {
       throw new BadRequestException("User with that email already exists");
     }
 
-    Optional<User> userWithUsername = userRepository.findByEmail(payload.getEmail());
+    Optional<User> userWithUsername = userRepository.findByUsername(payload.getDisplayName());
 
     if (userWithUsername.isPresent() && !userWithUsername.get().getId().equals(id)) {
       throw new BadRequestException("User with that username already exists");

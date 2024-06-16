@@ -49,7 +49,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 		: dayjs().add(1, "day").hour(8).minute(0);
 	let eventCapacity: number | null = Number(searchParams.get("capacity")) || event?.capacity || null;
 	let eventLocation: string =
-		searchParams.get("location") || `${event?.geoLocation.iso2Code}/${event?.geoLocation.city}` || "";
+		searchParams.get("location") || (event && `${event?.geoLocation.iso2Code}/${event?.geoLocation.city}`) || "";
 	let eventVenue: string = searchParams.get("venue") || event?.venue || "";
 	let eventGoogleMapsURL: string = searchParams.get("mapsLink") || event?.googleMapsURL || "";
 
