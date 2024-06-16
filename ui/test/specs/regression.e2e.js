@@ -7,7 +7,7 @@ const EditProfilePage = require('../pageobjects/editProfile.page')
 
 let firstName = 'Arzemina'
 let lastName = 'Brackovic'
-let email1 = 'arzemina.brackovic+13@gmail.com'
+let email1 = 'arzemina.brackovic+28@gmail.com'
 let displayName = 'arzemina_b'
 let password = 'password8!'
 let nameUpdate = 'Update'

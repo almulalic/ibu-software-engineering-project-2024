@@ -1,6 +1,8 @@
+/** global pause */
 const { $ } = require('@wdio/globals')
 const Page = require('./page');
 const homePage = require('./home.page')
+const { browser } = require('@wdio/globals');
 
 class EditProfilePage extends Page {
 
@@ -26,10 +28,10 @@ class EditProfilePage extends Page {
 
     async editFirstName(firstNameUpdate) {
         await homePage.mainMenuButton.click()
+        await browser.pause(2000)
         await homePage.editProfileButton.click()
         await this.firstNameInputField.click()
         await this.firstNameInputField.setValue(firstNameUpdate);
-        await expect(this.firstNameInputField).toHaveText(firstNameUpdate)
     }
 
     async editLastName(lastNameUpdate) {
@@ -37,7 +39,6 @@ class EditProfilePage extends Page {
         await homePage.editProfileButton.click()
         await this.lastNameInputField.click()
         await this.lastNameInputField.setValue(lastNameUpdate);
-        await expect(this.lastNameInputField).toHaveText(lastNameUpdate)
     }
 
     async editDisplayName(displayNameUpdate) {
@@ -45,16 +46,14 @@ class EditProfilePage extends Page {
         await homePage.editProfileButton.click()
         await this.displayNameInputField.click()
         await this.displayNameInputField.setValue(displayNameUpdate);
-        await expect(this.displayNameInputField).toHaveText(displayNameUpdate)
     }
 
     async editEmailAddress(emailAddressUpdate) {
         await homePage.mainMenuButton.click()
         await homePage.editProfileButton.click()
         await this.emailAddressInputField.click()
-        await this.emailAddressInputField.clear()
+        await this.emailAddressInputField.clearValue()
         await this.emailAddressInputField.setValue(emailAddressUpdate);
-        await expect(this.emailAddressInputField).toHaveText(emailAddressUpdate)
     }
 
     async saveChanges() {

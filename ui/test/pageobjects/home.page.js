@@ -53,11 +53,11 @@ class HomePage extends Page {
     }
 
     get mainMenuButton() {
-        return $('//*[@id="logged-in-user-menu"]/div/span/svg')
+        return $('#logged-in-user-menu > div > span')
     }
 
     get editProfileButton() {
-        return $('//*[@id="rc-menu-uuid-49203-1-USER-popup"]/li[1]/span')
+        return $('/html/body/div[2]/div/div[3]/div/div/div[2]/ul/li[3]/ul/li[1]')
     }
 
     async findEventsByName (eventName) {
