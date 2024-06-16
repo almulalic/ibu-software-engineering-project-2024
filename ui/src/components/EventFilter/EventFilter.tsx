@@ -7,6 +7,7 @@ import {
 	date_range_change,
 	PAGE_SIZE_OPTIONS,
 	page_size_change,
+	order_change,
 } from "../../store/eventFilterSlice";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -106,7 +107,9 @@ export default function EventFilter({ eventsLoading }: EventFilterState) {
 		dispatch(category_change(all));
 	};
 
-	const handleOrderChange = () => {};
+	const handleOrderChange = (order: any) => {
+		dispatch(order_change(order));
+	};
 
 	const onDateRangeChange = (value: any) => {
 		if (value) {

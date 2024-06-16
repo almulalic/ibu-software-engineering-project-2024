@@ -1,11 +1,10 @@
 package ba.edu.ibu.eventport.api.core.repository.impl;
 
 import ba.edu.ibu.eventport.api.core.model.event.Event;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +30,38 @@ public class FilterableEventRepositoryImpl {
      */
     public FilterableEventRepositoryImpl(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
+    }
+
+    public Sort generateSort(Pageable pageable) {
+        Sort mongoSort = Sort.unsorted();
+
+        if (pageable != null && pageable.getSort().isSorted()) {
+            for (Sort.Order order : pageable.getSort()) {
+                String property = order.getProperty();
+                Sort.Direction direction = order.getDirection();
+
+                switch (property) {
+                    case "price":
+                        if (direction == Sort.Direction.ASC) {
+                            mongoSort = mongoSort.and(Sort.by(Sort.Order.asc("ticketTypes.price")));
+                        } else {
+                            mongoSort = mongoSort.and(Sort.by(Sort.Order.desc("ticketTypes.price")));
+                        }
+                        break;
+                    case "likedBy":
+                        if (direction == Sort.Direction.ASC) {
+                            mongoSort = mongoSort.and(Sort.by(Sort.Order.asc("likedBy")));
+                        } else {
+                            mongoSort = mongoSort.and(Sort.by(Sort.Order.desc("likedBy")));
+                        }
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unsupported sorting property: " + property);
+                }
+            }
+        }
+
+        return mongoSort;
     }
 
     /**
@@ -91,9 +122,13 @@ public class FilterableEventRepositoryImpl {
             query.addCriteria(Criteria.where("dateTime").gte(startDate));
         }
 
+        if (!pageable.getSort().isEmpty()) {
+            query.with(this.generateSort(pageable));
+        }
+
         long totalCount = mongoTemplate.count(query, Event.class);
 
-        query.with(pageable);
+        query.with(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
 
         List<Event> events = mongoTemplate.find(query, Event.class);
 
