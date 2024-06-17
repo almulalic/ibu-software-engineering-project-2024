@@ -35,7 +35,6 @@ class EditProfilePage extends Page {
         await browser.pause(2000)
         await this.firstNameInputField.clearValue()
         await browser.pause(2000)
-        await browser.debug()
         await this.firstNameInputField.click()
         await this.firstNameInputField.setValue(firstNameUpdate);
     }
