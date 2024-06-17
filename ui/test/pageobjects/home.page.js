@@ -86,6 +86,11 @@ class HomePage extends Page {
         await expect(this.eventCardCity).toHaveText(eventCity)
     }
 
+    async goToEditProfilePage() {
+        await this.mainMenuButton.click()
+        await this.editProfileButton.click()
+    }
+
     /**
      * overwrite specific options to adapt it to page object
      */

@@ -9,15 +9,15 @@ class LoginPage extends Page {
     /**
      * define selectors using getter methods
      */
-    get inputUsername () {
+    get inputUsername() {
         return $('//*[@id="login-form_email"]');
     }
 
-    get inputPassword () {
+    get inputPassword() {
         return $('//*[@id="login-form_password"]');
     }
 
-    get submitButton () {
+    get submitButton() {
         return $('//*[@id="login-form"]/div[4]/div/div/div/div/button');
     }
 
@@ -33,24 +33,22 @@ class LoginPage extends Page {
         return $('//*[@id="login-form_password_help"]/div')
     }
 
-    async login (isSmoke, username, password) {
-        if(isSmoke) {
-            await homePage.loginButton.click()
-        }
+    async login(username, password) {
+        await homePage.loginButton.click()
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.submitButton.click();
         await expect(homePage.navBarMainMenuLogo).toBeDisplayed()
     }
 
-    async loginWithInvalidEmailAddress (username, errorMessage) {
+    async loginWithInvalidEmailAddress(username, errorMessage) {
         await homePage.loginButton.click()
         await this.inputUsername.setValue(username);
         await expect(this.errorMessageInvalidEmailAddress).toBeDisplayed()
         await expect(this.errorMessageInvalidEmailAddress).toHaveText(errorMessage)
     }
 
-    async loginWithShortPassword (username, password, errorMessage) {
+    async loginWithShortPassword(username, password, errorMessage) {
         await homePage.loginButton.click()
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
@@ -58,7 +56,7 @@ class LoginPage extends Page {
         await expect(this.errorMessagePasswordTooShort).toHaveText(errorMessage)
     }
 
-    open () {
+    open() {
         return super.open('');
     }
 }

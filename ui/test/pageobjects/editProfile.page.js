@@ -26,38 +26,46 @@ class EditProfilePage extends Page {
         return $('//*[@id="edit-profile-form"]/div[5]/div/div/div/div/button')
     }
 
+    get credentialsAlreadyExistsErrorMessage() {
+        return $('//*[@id="edit-profile-form"]/div[6]/div/div/div/div/div/div/div/div')
+    }
+
     async editFirstName(firstNameUpdate) {
-        await homePage.mainMenuButton.click()
-        await browser.pause(2000)
-        await homePage.editProfileButton.click()
+        await homePage.goToEditProfilePage()
         await this.firstNameInputField.click()
         await this.firstNameInputField.setValue(firstNameUpdate);
     }
 
     async editLastName(lastNameUpdate) {
-        await homePage.mainMenuButton.click()
-        await homePage.editProfileButton.click()
         await this.lastNameInputField.click()
         await this.lastNameInputField.setValue(lastNameUpdate);
     }
 
     async editDisplayName(displayNameUpdate) {
-        await homePage.mainMenuButton.click()
-        await homePage.editProfileButton.click()
         await this.displayNameInputField.click()
         await this.displayNameInputField.setValue(displayNameUpdate);
     }
 
     async editEmailAddress(emailAddressUpdate) {
-        await homePage.mainMenuButton.click()
-        await homePage.editProfileButton.click()
         await this.emailAddressInputField.click()
         await this.emailAddressInputField.clearValue()
         await this.emailAddressInputField.setValue(emailAddressUpdate);
     }
 
+    async getErrorMessageCredentialsAlreadyExists(errorMessage) {
+        await expect(this.credentialsAlreadyExistsErrorMessage).toBeDisplayed()
+        await expect(this.credentialsAlreadyExistsErrorMessage).toHaveText(errorMessage)
+    }
+
     async saveChanges() {
         this.saveButton.click()
+    }
+
+    /**
+     * overwrite specific options to adapt it to page object
+     */
+    open () {
+        return super.open('');
     }
 
 }

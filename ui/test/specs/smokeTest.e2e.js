@@ -18,7 +18,7 @@ describe('Eventport application - Smoke Tests', () => {
     it('Verify user can sign up with valid credentials', async () => {
         await SignupPage.open()
 
-        await SignupPage.signUp(isRegression, firstName, lastName, email1, displayName, password)
+        await SignupPage.signUp(firstName, lastName, email1, displayName, password)
     })
 
     it('Verify user can login with valid credentials', async () => {
