@@ -24,7 +24,7 @@ describe("Test Like Unlike Feature", () => {
 			["Electronics"],
 			"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/SMPTE_Color_Bars.svg/200px-SMPTE_Color_Bars.svg.png",
 			testEventName,
-			"2024-07-10 08:00",
+			"2025-07-10 08:00",
 			{ country: "Bosnia and Herzegovina", city: "Sarajevo" },
 			100,
 			"Town Hall",
@@ -39,6 +39,8 @@ describe("Test Like Unlike Feature", () => {
 				},
 			]
 		);
+
+		await browser.pause(3000);
 	});
 
 	it("Go to my organized events and find the test event", async () => {
