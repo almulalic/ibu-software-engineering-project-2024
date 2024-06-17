@@ -32,23 +32,35 @@ class EditProfilePage extends Page {
 
     async editFirstName(firstNameUpdate) {
         await homePage.goToEditProfilePage()
+        await browser.pause(2000)
+        await this.firstNameInputField.clearValue()
+        await browser.pause(2000)
+        await browser.debug()
         await this.firstNameInputField.click()
         await this.firstNameInputField.setValue(firstNameUpdate);
     }
 
     async editLastName(lastNameUpdate) {
+        await browser.pause(2000)
+        await this.lastNameInputField.clearValue()
+        await browser.pause(2000)
         await this.lastNameInputField.click()
         await this.lastNameInputField.setValue(lastNameUpdate);
     }
 
     async editDisplayName(displayNameUpdate) {
+        await browser.pause(2000)
+        await this.displayNameInputField.clearValue()
+        await browser.pause(2000)
         await this.displayNameInputField.click()
         await this.displayNameInputField.setValue(displayNameUpdate);
     }
 
     async editEmailAddress(emailAddressUpdate) {
-        await this.emailAddressInputField.click()
+        await browser.pause(2000)
         await this.emailAddressInputField.clearValue()
+        await browser.pause(2000)
+        await this.emailAddressInputField.click()
         await this.emailAddressInputField.setValue(emailAddressUpdate);
     }
 
