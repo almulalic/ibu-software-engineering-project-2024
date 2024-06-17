@@ -91,7 +91,6 @@ export function MyEvents() {
 	const handleEditEvent = (event: any) => {
 		setSelectedEvent(event);
 		dispatch(set_create_modal_visible(true));
-		dispatch;
 	};
 
 	useEffect(() => {
@@ -108,19 +107,21 @@ export function MyEvents() {
 				{eventViewType === "Organized Events" && (
 					<div className="my-events-event-mode-picker">
 						<Radio.Group size="large" onChange={handleModeChange} disabled={events.length === 0} value={mode}>
-							<Radio.Button value="edit">Edit Mode</Radio.Button>
-							<Radio.Button value="delete">Delete Mode</Radio.Button>
+							<Radio.Button title="Edit Mode" value="edit">
+								Edit Mode
+							</Radio.Button>
+							<Radio.Button title="Delete Mode" value="delete">
+								Delete Mode
+							</Radio.Button>
 						</Radio.Group>
 					</div>
 				)}
 
 				<div className="my-events-wrapper">
 					<EventsList
-						currentPage={currentPage}
 						loading={eventsLoading}
 						events={events}
 						totalResults={totalResults}
-						pageSize={10}
 						cardRenderer={(x: any, i: any) => {
 							if (eventViewType === "Attending Events") {
 								return <EventCard key={i} event={x.event} ticketType={x.ticketType} overview />;

@@ -103,7 +103,7 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 
 	return (
 		<>
-			<div className="event-card" onClick={() => setModalOpen(true)}>
+			<div className="event-card" title={event.name} onClick={() => setModalOpen(true)}>
 				<img className="event-card-img" src={event.bannerImageURL} alt="" />
 				<span
 					className={`event-card-edit event-card-editing-${isEditing}`}
@@ -116,6 +116,7 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 				</span>
 				<Popconfirm
 					title="Delete Event"
+					id="popconfirm-delete-event"
 					description="Are you sure to delete this event?"
 					onConfirm={handleDelete}
 					onCancel={(e) => e?.stopPropagation()}
@@ -123,18 +124,26 @@ export default function EventCard({ overview, event, ticketType, isEditing, onEd
 					cancelText="No"
 					icon={<QuestionCircleOutlined style={{ color: "red" }} />}
 				>
-					<span className={`event-card-delete event-card-deleting-${isDeleting}`} onClick={(e) => e.stopPropagation()}>
+					<span
+						title="delete-event-button"
+						className={`event-card-delete event-card-deleting-${isDeleting}`}
+						onClick={(e) => e.stopPropagation()}
+					>
 						<DeleteFilled />
 					</span>
 				</Popconfirm>
 				<div className="event-card-content">
 					<div className="event-card-info">
-						<span className="event-card-title">{event.name}</span>
+						<span className="event-card-title" title={event.name}>
+							{event.name}
+						</span>
 						{!overview && (
 							<div className="event-card-likes">
-								<span className="event-card-likes-count">{event.likedBy.length}</span>
+								<span title="like-count" className="event-card-likes-count">
+									{event.likedBy.length}
+								</span>
 								<span className={`event-card-likes-icon event-card-liked-${isLikedByUser}`}>
-									<HeartFilled onClick={isLikedByUser ? unlike : like} />
+									<HeartFilled title="event-like-button" onClick={isLikedByUser ? unlike : like} />
 								</span>
 							</div>
 						)}

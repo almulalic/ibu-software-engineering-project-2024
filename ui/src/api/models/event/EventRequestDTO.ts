@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { GeoLocation } from "../GeoLocation";
 import { TicketType } from "../ticket/TicketType";
 
 export class EventRequestDTO {

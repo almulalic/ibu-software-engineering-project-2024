@@ -45,7 +45,6 @@ export function EditProfile() {
 				let refreshResponse = await AuthAPIService.refreshToken(accessToken, refreshToken);
 
 				if (refreshResponse.status === 200) {
-					console.log(response.data);
 					dispatch(
 						edit_sucessfull({
 							accessToken: refreshResponse.data.accessToken,
