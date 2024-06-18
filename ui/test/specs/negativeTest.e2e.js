@@ -11,7 +11,7 @@ let email = "arzemina.brackovic@stu.ibu.edu.ba";
 let correctPassword = "password8!";
 let incorrectPassword = "123";
 
-describe("Eventport application", () => {
+describe("Eventport application - Negative Tests", () => {
 	it("Verify user can't sign up with same credentials", async () => {
 		await SignupPage.open();
 

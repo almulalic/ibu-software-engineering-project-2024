@@ -29,6 +29,7 @@ exports.config = {
 		negativeTest: ["./test/specs/negativeTest.e2e.js"],
 		smokeTest: ["./test/specs/smokeTest.e2e.js"],
 		likeUnlikeTest: ["./test/specs/likeUnlikeTest.e2e.js"],
+		editProfile: ["./test/specs/editProfile.e2e.js"],
 	},
 	//
 	// ============
