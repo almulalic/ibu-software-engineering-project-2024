@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { AppDispatch, RootState } from "../../store";
+import { AxiosResponse } from "axios";
+import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import Page from "../../containers/Page/Page";
 import { MailOutlined } from "@ant-design/icons";
+import { AuthAPIService } from "../../api/services";
 import { Alert, Button, Card, Form, Input } from "antd";
+import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME } from "../../constants";
 
 import "./EditProfile.scss";
-import { AxiosResponse } from "axios";
-import { AuthAPIService } from "../../api/services";
-import { login_failed, login_sucessfull } from "../../store/authSlice";
-import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME } from "../../constants";
+import { edit_sucessfull } from "../../store/authSlice";
 
 export type EditUserFormData = {
 	firstName: string;
@@ -25,6 +25,7 @@ export function EditProfile() {
 	const { userInfo } = useSelector((state: RootState) => state.auth);
 
 	const [isLoading, setLoading] = useState(false);
+	const dispatch = useDispatch();
 
 	const onFinish = async (data: EditUserFormData) => {
 		setLoading(true);
@@ -44,7 +45,13 @@ export function EditProfile() {
 				let refreshResponse = await AuthAPIService.refreshToken(accessToken, refreshToken);
 
 				if (refreshResponse.status === 200) {
-					setResponse("Edit successful");
+					dispatch(
+						edit_sucessfull({
+							accessToken: refreshResponse.data.accessToken,
+							refreshToken: refreshResponse.data.refreshToken,
+							user: response.data,
+						})
+					);
 					window.location.reload();
 				} else {
 					localStorage.clear();
@@ -74,21 +81,36 @@ export function EditProfile() {
 					<Form.Item
 						label="First name"
 						name="firstName"
-						rules={[{ required: true, message: "Please enter your first name!" }]}
+						rules={[
+							{ required: true, message: "Please enter your first name!" },
+							{ min: 3, message: "First name must be at least 3 characters long!" },
+							{ pattern: /^[a-zA-Z0-9]*$/, message: "First name must contain only alphanumeric characters!" },
+						]}
 					>
 						<Input disabled={isLoading} />
 					</Form.Item>
 					<Form.Item
 						label="Last name"
 						name="lastName"
-						rules={[{ required: true, message: "Please enter your last name!" }]}
+						rules={[
+							{ required: true, message: "Please enter your last name!" },
+							{ min: 3, message: "Last name must be at least 3 characters long!" },
+							{ pattern: /^[a-zA-Z0-9]*$/, message: "Last name must contain only alphanumeric characters!" },
+						]}
 					>
 						<Input disabled={isLoading} />
 					</Form.Item>
 					<Form.Item
 						label="Display name"
 						name="displayName"
-						rules={[{ required: true, message: "Please enter your display name!" }]}
+						rules={[
+							{ required: true, message: "Please enter your display name!" },
+							{ min: 3, message: "Display name must be at least 3 characters long!" },
+							{
+								pattern: /^[a-zA-Z0-9_-]*$/,
+								message: "Display name must contain only alphanumeric characters, underscores, and hyphens!",
+							},
+						]}
 					>
 						<Input disabled={isLoading} />
 					</Form.Item>

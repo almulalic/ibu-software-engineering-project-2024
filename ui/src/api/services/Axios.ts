@@ -2,42 +2,34 @@ import axios, { Axios } from "axios";
 import { AuthAPIService } from "../../api/services";
 import { ACCESS_TOKEN_NAME, BASE_API_URL, BASE_AUTH_URL, REFRESH_TOKEN_NAME } from "../../constants";
 
-export const publicAxiosApp = axios.create({
+export const axiosEventApp = axios.create({
 	baseURL: BASE_API_URL,
 	timeout: 10000,
 	validateStatus: () => true,
 });
 
-export const authorizedAxiosApp = axios.create({
+export const axiosAuthorizedEventApp = axios.create({
 	baseURL: BASE_API_URL,
 	timeout: 10000,
 	validateStatus: (status) => status !== 401 && status !== 403,
 });
-attachTokenLogic(authorizedAxiosApp);
-attachRefreshLogic(authorizedAxiosApp);
+attachTokenLogic(axiosAuthorizedEventApp);
+attachRefreshLogic(axiosAuthorizedEventApp);
 
-export const axiosAuth = axios.create({
+export const axiosAuthApp = axios.create({
 	baseURL: BASE_AUTH_URL,
 	timeout: 10000,
 	validateStatus: () => true,
 });
 
-export const axiosAuthAuthorized = axios.create({
+export const axiosAuthorizedAuthApp = axios.create({
 	baseURL: BASE_AUTH_URL,
 	timeout: 10000,
 	validateStatus: (status) => status !== 401 && status !== 403,
 });
 
-attachTokenLogic(axiosAuthAuthorized);
-attachRefreshLogic(axiosAuthAuthorized);
-
-export const authorizedAuthAxiosApp = axios.create({
-	baseURL: BASE_AUTH_URL,
-	timeout: 10000,
-	validateStatus: (status) => status !== 401 && status !== 403,
-});
-attachTokenLogic(authorizedAuthAxiosApp);
-attachRefreshLogic(authorizedAuthAxiosApp);
+attachTokenLogic(axiosAuthorizedAuthApp);
+attachRefreshLogic(axiosAuthorizedAuthApp);
 
 function attachTokenLogic(app: Axios) {
 	app.interceptors.request.use(async (config) => {

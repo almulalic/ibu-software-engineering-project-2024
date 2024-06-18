@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { createSearchParams } from "react-router-dom";
-import { authorizedAxiosApp, publicAxiosApp } from "./Axios";
+import { axiosAuthorizedEventApp, axiosEventApp } from "./Axios";
 import { EventRequestDTO } from "../models/event/EventRequestDTO";
 
 export class EventApiService {
@@ -15,7 +15,7 @@ export class EventApiService {
 		pageSize: number,
 		sort: string
 	): Promise<AxiosResponse> {
-		return publicAxiosApp.get(
+		return axiosEventApp.get(
 			`/event?${createSearchParams({
 				searchText: searchText,
 				geoLocationCountries: geolocationCountriesURI,
@@ -31,27 +31,27 @@ export class EventApiService {
 	}
 
 	static async getInFocus() {
-		return publicAxiosApp.get(`/event/focus`);
+		return axiosEventApp.get(`/event/focus`);
 	}
 
 	static async create(event: EventRequestDTO) {
-		return authorizedAxiosApp.post(`/event`, event);
+		return axiosAuthorizedEventApp.post(`/event`, event);
 	}
 
 	static async edit(id: string, event: EventRequestDTO) {
-		return authorizedAxiosApp.put(`/event/${id}`, event);
+		return axiosAuthorizedEventApp.put(`/event/${id}`, event);
 	}
 
 	static async like(eventId: string): Promise<AxiosResponse> {
-		return authorizedAxiosApp.post(`/event/user/like/${eventId}`);
+		return axiosAuthorizedEventApp.post(`/event/user/like/${eventId}`);
 	}
 
 	static async unlike(eventId: string): Promise<AxiosResponse> {
-		return authorizedAxiosApp.post(`/event/user/unlike/${eventId}`);
+		return axiosAuthorizedEventApp.post(`/event/user/unlike/${eventId}`);
 	}
 
 	static async likedEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
-		return authorizedAxiosApp.get(
+		return axiosAuthorizedEventApp.get(
 			`/event/user/liked?${createSearchParams({
 				page: currentPage.toString(),
 				size: pageSize.toString(),
@@ -60,7 +60,7 @@ export class EventApiService {
 	}
 
 	static async createdEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
-		return authorizedAxiosApp.get(
+		return axiosAuthorizedEventApp.get(
 			`/event/user/created?${createSearchParams({
 				page: currentPage.toString(),
 				size: pageSize.toString(),
@@ -69,7 +69,7 @@ export class EventApiService {
 	}
 
 	static async attendingEvents(currentPage: number, pageSize: number): Promise<AxiosResponse> {
-		return authorizedAxiosApp.get(
+		return axiosAuthorizedEventApp.get(
 			`/event/user/attending?${createSearchParams({
 				page: currentPage.toString(),
 				size: pageSize.toString(),
@@ -78,10 +78,10 @@ export class EventApiService {
 	}
 
 	static async buyTicket(eventId: string, ticketName: string): Promise<AxiosResponse> {
-		return authorizedAxiosApp.post(`/event/${eventId}/ticket/${ticketName}/buy`);
+		return axiosAuthorizedEventApp.post(`/event/${eventId}/ticket/${ticketName}/buy`);
 	}
 
 	static async delete(eventId: string): Promise<AxiosResponse> {
-		return authorizedAxiosApp.delete(`/event/${eventId}`);
+		return axiosAuthorizedEventApp.delete(`/event/${eventId}`);
 	}
 }

@@ -112,7 +112,7 @@ public class UserService {
    * @throws UserNotFoundException if the user with the given ID does not exist.
    */
   public UserDTO updateUser(String id, EditUserRequest payload) {
-    Optional<User> user = userRepository.findById(id);
+    Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isEmpty()) {
       throw new UserNotFoundException("The user with the given ID does not exist.");
@@ -124,7 +124,7 @@ public class UserService {
       throw new BadRequestException("User with that email already exists");
     }
 
-    Optional<User> userWithUsername = userRepository.findByEmail(payload.getEmail());
+    Optional<User> userWithUsername = userRepository.findByUsername(payload.getDisplayName());
 
     if (userWithUsername.isPresent() && !userWithUsername.get().getId().equals(id)) {
       throw new BadRequestException("User with that username already exists");

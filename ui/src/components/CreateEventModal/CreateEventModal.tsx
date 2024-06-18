@@ -49,7 +49,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 		: dayjs().add(1, "day").hour(8).minute(0);
 	let eventCapacity: number | null = Number(searchParams.get("capacity")) || event?.capacity || null;
 	let eventLocation: string =
-		searchParams.get("location") || `${event?.geoLocation.iso2Code}/${event?.geoLocation.city}` || "";
+		searchParams.get("location") || (event && `${event?.geoLocation.iso2Code}/${event?.geoLocation.city}`) || "";
 	let eventVenue: string = searchParams.get("venue") || event?.venue || "";
 	let eventGoogleMapsURL: string = searchParams.get("mapsLink") || event?.googleMapsURL || "";
 
@@ -200,6 +200,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 							>
 								<Cascader
 									id="category-cascader"
+									dropdownRender={(menus: any) => <div id="event-modal-category-cascader">{menus}</div>}
 									className="event-filter-cascader"
 									options={categoriesCascader.options}
 									multiple
@@ -267,11 +268,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 							]}
 							initialValue={eventDateTime}
 						>
-							<DatePicker
-								className="create-event-modal-date-time"
-								showTime={{ format: "HH:mm" }}
-								format={DATE_TIME_INPUT_FORMAT}
-							/>
+							<DatePicker id="event-modal-date-time" showTime={{ format: "HH:mm" }} format={DATE_TIME_INPUT_FORMAT} />
 						</Form.Item>
 					</Col>
 
@@ -284,6 +281,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 						>
 							<Cascader
 								id="location-cascader"
+								dropdownRender={(menus: any) => <div id="event-modal-location-cascader">{menus}</div>}
 								className="event-filter-cascader"
 								options={countriesCascader.options}
 								maxTagCount={1}
@@ -344,7 +342,13 @@ export default function CreateEventModal({ event }: EventModalProps) {
 						<div className="create-event-modal-tickets">
 							{fields.map((field, index) => renderTicketForm(form, field, add, remove, index))}
 							<Form.Item>
-								<Button type="dashed" onClick={add} style={{ width: "100%" }} icon={<PlusOutlined />}>
+								<Button
+									id="addTicketTypeButton"
+									type="dashed"
+									onClick={() => add()}
+									style={{ width: "100%" }}
+									icon={<PlusOutlined />}
+								>
 									Add field
 								</Button>
 
@@ -362,7 +366,7 @@ export default function CreateEventModal({ event }: EventModalProps) {
 					</Form.Item>
 				)}
 
-				<Button block size="large" htmlType="submit">
+				<Button id="submitEventForm" block size="large" htmlType="submit">
 					Submit
 				</Button>
 			</Form>

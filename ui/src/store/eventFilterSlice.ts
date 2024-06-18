@@ -17,11 +17,11 @@ export const SORT_OPTIONS: OrderDropdownItem<string>[] = [
 		label: "Price (ASC)",
 	},
 	{
-		value: "likedBy.count,desc",
+		value: "likedBy,desc",
 		label: "Likes (DESC)",
 	},
 	{
-		value: "likedBy.count,asc",
+		value: "likedBy,asc",
 		label: "Likes (ASC)",
 	},
 ];
@@ -118,7 +118,7 @@ const eventFilterSlice = createSlice({
 			state.endDate = data.payload.endDate;
 		},
 		order_change: (state, data) => {
-			state.sort = data.payload.sort;
+			state.sort = data.payload;
 		},
 	},
 });
